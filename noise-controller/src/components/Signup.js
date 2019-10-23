@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { axiosWithAuth } from "../data/axiosAuth";
+import { axiosWithAuth } from '../data/axiosAuth';
 
 const Signup = props => {
 
@@ -9,7 +9,7 @@ const [signupCreds, setSignupCreds] = useState({
     email: "",
     firstName: "",
     lastName: "",
-    title: "",
+    // title: "",
     err: null
   });
 
@@ -23,11 +23,11 @@ const [signupCreds, setSignupCreds] = useState({
 
   const signup = () => {
     axiosWithAuth()
-      .post(``, {
+      .post(`https://noise-controller-backend.herokuapp.com/api/teachers/register`, {
         username: signupCreds.username,
         password: signupCreds.password,
         email: signupCreds.email,
-        title: signupCreds.title,
+        // title: signupCreds.title,
         firstName: signupCreds.firstName,
         lastName: signupCreds.lastName,
       })
@@ -38,7 +38,7 @@ const [signupCreds, setSignupCreds] = useState({
       .catch(err =>
         setSignupCreds({
           ...signupCreds,
-          err: "Error logging in. Please try again."
+          err: "Error signing up. Please try again."
         })
       );
   };
@@ -97,6 +97,14 @@ const [signupCreds, setSignupCreds] = useState({
           value={signupCreds.username}
           onChange={handleChange}
           autoComplete="username"
+        />
+        <input
+          type="text"
+          name="email"
+          placeholder="Enter email..."
+          value={signupCreds.email}
+          onChange={handleChange}
+          autoComplete="email"
         />
         <input
           type="password"
