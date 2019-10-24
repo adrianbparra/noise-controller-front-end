@@ -36,10 +36,11 @@ const [signupCreds, setSignupCreds] = useState({
         props.history.push("/home");
       })
       .catch(err =>
-        setSignupCreds({
-          ...signupCreds,
-          err: "Error signing up. Please try again."
-        })
+        console.log(props)
+        // setSignupCreds({
+        //   ...signupCreds,
+        //   err: "Error signing up. Please try again."
+        // })
       );
   };
 
