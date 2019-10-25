@@ -32,7 +32,7 @@ const [classSignupCreds, setClassSignupCreds] = useState({
       .catch(err =>
         setClassSignupCreds({
           ...classSignupCreds,
-          err: "Error logging in. Please try again."
+          err: "Error creating class. Please try again."
         })
       );
   };
@@ -42,7 +42,7 @@ const [classSignupCreds, setClassSignupCreds] = useState({
     classSignupCreds.name === "" || classSignupCreds.teacherId === "" || classSignupCreds.grade === ""
       ? setClassSignupCreds({
           ...classSignupCreds,
-          err: "Please complete all login fields."
+          err: "Please complete all class signup fields."
         })
       : signup();
   };
