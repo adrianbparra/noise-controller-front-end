@@ -1,6 +1,6 @@
-// React 2 stuff so dont worry about this if React 1 
+// React 2 stuff so don't worry about this if React 1 
 
-//Need to figure out how mnay folders will branch out for here
+//Need to figure out how many folders will branch out for here
 
 //to create the payloads
 import { initialState } from "../stores";
