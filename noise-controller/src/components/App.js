@@ -5,13 +5,14 @@ import jwtDecode from 'jwt-decode';
 import ScoresList from './ScoresList';
 import Home from './Home';
 import axiosWithAuth from '../axiosWithAuth';
+import ClassSignUp from './ClassSignUp';
 
 function App() {
 
   return (
     <div className="App">
 
-  <ScoresList />
+  
 
     {/* <Route
       exact
