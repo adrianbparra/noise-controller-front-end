@@ -85,6 +85,9 @@ const [loginCreds, setLoginCreds] = useState({
                     )}
                 </Segment>
             </form>
+        {/* <Message>
+            New to us? <Link to='/signup'>Sign up</Link>
+        </Message> */}
       </Grid.Column>
     </Grid>
   );
