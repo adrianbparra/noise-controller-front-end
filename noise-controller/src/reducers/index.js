@@ -1,6 +1,13 @@
-// React 2 stuff so dont worry about this if React 1 
-import { initialState } from "../stores";
+// React 2 stuff so don't worry about this if React 1 
 
-export const reducer = () => {
+//Need to figure out how many folders will branch out for here
 
-};
+//to create the payloads
+import { combineReducers } from 'redux';
+import { animalsReducer } from './animalsReducer';
+import { singleAnimalReducer } from './singleAnimalReducer';
+
+export default combineReducers({
+    animalsReducer,
+    singleAnimalReducer
+});
