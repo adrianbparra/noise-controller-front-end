@@ -1,3 +1,20 @@
+<<<<<<< classForm
+// where the actual animals are dissapearing and where we are measuring mic sensitivity 
+import React, { useState } from 'react';
+import ScoresList from './ScoresList';
+
+function Home(props) {
+
+
+    return (
+        <div>
+            <ScoresList  />
+        </div>
+    );
+}
+
+export default Home;
+=======
 
 // where the actual animals are disappearing and where we are measuring mic sensitivity 
 import React, {Component } from 'react';
@@ -69,3 +86,4 @@ export default connect(mapStateToProps, {
     updateSingleAnimal,
     toggleShowUpdate,
 })(Animals);
+>>>>>>> master
