@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch, BrowserRouter } from 'react-rou
 import '../App.css';
 import Signup from './Signup';
 import PrivateRoute from './PrivateRoute';
+import Logout from './Logout';
 import Login from './Login';
 import Home from './Home';
 import ScoreCard from './ScoreCard';
@@ -24,9 +25,15 @@ function App() {
 
         <Route
           exact
-          path="/"
+          path="/login"
           component={props => <Login {...props} />}
         /> 
+
+        <Route
+          exact
+          path="/logout"
+          component={props => <Logout {...props} />}
+        />
 
         <Route
           exact
