@@ -35,7 +35,7 @@ const [signupCreds, setSignupCreds] = useState({
       })
       .then(res => {
         localStorage.setItem("token", res.data.payload);
-        props.history.push("/home");
+        props.history.push("/classform");
       })
       .catch(err =>
         console.log(props)
