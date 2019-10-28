@@ -3,8 +3,11 @@
 //Need to figure out how many folders will branch out for here
 
 //to create the payloads
-import { initialState } from "../stores";
+import { combineReducers } from 'redux';
+import { animalsReducer } from './animalsReducer';
+import { singleAnimalReducer } from './singleAnimalReducer';
 
-export const reducer = () => {
-
-};
+export default combineReducers({
+    animalsReducer,
+    singleAnimalReducer
+});

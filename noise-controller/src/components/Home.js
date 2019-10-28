@@ -5,7 +5,7 @@ import { deleteAnimal, updateSingleAnimal, toggleShowUpdate } from '../actions';
 
 class Home extends Component {
     handleDeleteAnimal = () => {
-        const{ id } = this.props.homeSelected;
+        const{ id } = this.props.animalSelected;
         this.props.deleteAnimal(id);
     };
 
@@ -45,7 +45,7 @@ class Home extends Component {
                 ) : null} */}
 
                 {/* //Need to input logo */}
-                {this.props.deletingFriend ? (
+                {this.props.deletingAnimal ? (
                     <img src={logo} className="App-logo" alt="logo" />
                 ) : null}
             </div>
@@ -56,6 +56,10 @@ class Home extends Component {
 const mapStateToProps = state => {
     return {
 /**Need to include all reducer forms */
+        deletingAnimal: state.animalsReducer.animalsFriend,
+        error: state.animalsReducer.error,
+        showUpdate: state.singleAnimalReducer.showUpdate,
+        animalSelected: state.singleAnimalReducer.animalSelected
     }; 
 };
 

@@ -21,7 +21,7 @@ export const getAnimals = () => {
         dispatch({ type: GETTING_ANIMALS });
         animals
             .then(response => {
-                dispatch({ type: GET_FRIENDS, payload: response.data });
+                dispatch({ type: GET_ANIMALS, payload: response.data });
             })
             .catch(err => {
                 dispatch({ type: ERROR, payload: err });
@@ -30,7 +30,7 @@ export const getAnimals = () => {
 };
 
 export const createAnimal = animal => {
-    const newAnimal = axios.post(`${URL}/create`, animal;
+    const newAnimal = axios.post(`${URL}/create`, animal);
     return dispatch => {
         dispatch({ type: CREATING_ANIMAL });
         newAnimal
