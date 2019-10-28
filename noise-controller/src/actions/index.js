@@ -13,7 +13,7 @@ export const DELETING_ANIMAL = 'DELETING_ANIMAL';
 export const SINGLE_ANIMAL = "SINGLE_ANIMAL";
 export const TOGGLE_UPDATE_ANIMAL = 'TOGGLE_UPDATE_ANIMAL';
 
-const URL = 'http://localhost:5000/api/animals';
+const URL = 'http://localhost:3000/api/animals';
 
 export const getAnimals = () => {
     const animals = axios.get(`${URL}/get`);
