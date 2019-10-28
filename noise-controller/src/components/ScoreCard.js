@@ -1,10 +1,13 @@
 import React from 'react';
 import '../Score.css';
 import { Link } from 'react-router-dom';
+import Nav from './Nav';
 
 
 const ScoreCard = props => {
     return (
+        <>
+        <Nav />
         <div className='container'>
         <h1>Score Board</h1>
         {/*<Link to='/home'>Home</Link> */}
@@ -39,6 +42,7 @@ const ScoreCard = props => {
             </div>
         </div>
         </div>
+        </>
     );
 }
 
