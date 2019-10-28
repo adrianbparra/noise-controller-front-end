@@ -8,15 +8,17 @@ import Login from './Login';
 import Home from './Home';
 import ScoreCard from './ScoreCard';
 import ClassSignUp from './ClassSignUp';
+import Settings from './Settings';
 import axiosWithAuth from '../axiosWithAuth';
+
 
 function App() {
   return (
     <div className="App">
-    <Signup />
+
 
     <BrowserRouter>
-      <Switch>
+      <Switch> 
         <Route 
           exact
           path='/signup'
@@ -45,6 +47,12 @@ function App() {
           exact
           path="/home"
           component={props => <Home {...props} />}
+        />
+
+        <PrivateRoute
+          exact
+          path='/settings'
+          component={props => <Settings {...props} />}
         />
 
 
