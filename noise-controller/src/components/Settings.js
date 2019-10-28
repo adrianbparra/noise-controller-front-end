@@ -10,7 +10,7 @@ const Settings = props => {
             <div className='settings-row'>
                 
                 <form>
-                    <div>
+                    <div className='top'>
                         <label>
                             Mic Sensitivity
                         </label>
@@ -27,7 +27,7 @@ const Settings = props => {
                                 <option value='10'>10</option>
                             </select>
                     </div>
-                    <div>
+                    <div className='bottom'>
                         <label>
                             Time between switching animals
                         </label>
