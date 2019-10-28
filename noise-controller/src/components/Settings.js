@@ -1,10 +1,13 @@
 import React from 'react';
+import Nav from './Nav';
 import '../Settings.css';
 
 const Settings = props => {
 
 
     return (
+        <>
+        <Nav />
         <div className='settings-container'>
             <h1>Settings</h1>
             <div className='settings-row'>
@@ -47,6 +50,7 @@ const Settings = props => {
                 </form>
             </div>
         </div>
+        </>
     );
 }
 
