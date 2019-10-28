@@ -1,1 +1,1 @@
-// where teacher can adjust microphone sensitivity and the amount of time in takes to switch animals
+// where teacher can adjust microphone sensitivity and the amount of time in takes to switch animals. Turnary.
