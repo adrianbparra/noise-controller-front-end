@@ -1,23 +1,7 @@
-<<<<<<< classForm
-// where the actual animals are dissapearing and where we are measuring mic sensitivity 
-import React, { useState } from 'react';
-import ScoresList from './ScoresList';
-
-function Home(props) {
-
-
-    return (
-        <div>
-            <ScoresList  />
-        </div>
-    );
-}
-
-export default Home;
-=======
-
 // where the actual animals are disappearing and where we are measuring mic sensitivity 
 import React, {Component } from 'react';
+import React, { useState } from 'react';
+import ScoresList from './ScoresList';
 import { connect } from 'react-redux';
 import { deleteAnimal, updateSingleAnimal, toggleShowUpdate } from '../actions';
 
@@ -71,6 +55,18 @@ class Home extends Component {
     }
 }
 
+function Home(props) {
+
+
+    return (
+        <div>
+            <ScoresList  />
+        </div>
+    );
+}
+
+export default Home;
+
 const mapStateToProps = state => {
     return {
 /**Need to include all reducer forms */
@@ -86,4 +82,3 @@ export default connect(mapStateToProps, {
     updateSingleAnimal,
     toggleShowUpdate,
 })(Animals);
->>>>>>> master
