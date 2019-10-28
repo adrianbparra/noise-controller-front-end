@@ -20,5 +20,9 @@ ReactDOM.render(
         <Provider store={store}>
             <App />
         </Provider>
+<<<<<<< classForm
     </Router>, 
+=======
+    </Router>,
+>>>>>>> master
     document.getElementById('root'));
