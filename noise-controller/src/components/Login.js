@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { Link } from 'react-router-dom';
+import { Header, Button, Grid, Message, Segment } from 'semantic-ui-react';
 import { axiosWithAuth } from "../data/axiosAuth";
 
 const Login = props => {
@@ -45,32 +47,46 @@ const [loginCreds, setLoginCreds] = useState({
   };
 
   return (
-    <div className="login-page">
-    <h1>Noise Controller</h1>
-    <form>
-        <h4>Enter Login Creds</h4>
-        <input
-          type="text"
-          name="username"
-          placeholder="Enter username..."
-          value={loginCreds.username}
-          onChange={handleChange}
-          autoComplete="username"
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Enter password..."
-          value={loginCreds.password}
-          onChange={handleChange}
-          autoComplete="current-password"
-        />
-        <button onClick={handleSubmit}>Login</button>
-        {loginCreds.err && (
-          <div className="error-container">{loginCreds.err}</div>
-        )}
-      </form>
-    </div>
+    <Grid textAlign="center" style={{ height: '100vh' }} verticalAlign="middle">
+      <Grid.Column style={{ maxWidth: 450 }}>
+        <Header as="h2" style={{ color: '#2B4162' }} textAlign="center">Login</Header>
+            <form>
+                <Segment stacked>
+                    <input
+                    type="text"
+                    name="username"
+                    placeholder="Enter username..."
+                    value={loginCreds.username}
+                    onChange={handleChange}
+                    autoComplete="username"
+                    />
+                    <input
+                    type="password"
+                    name="password"
+                    placeholder="Enter password..."
+                    value={loginCreds.password}
+                    onChange={handleChange}
+                    autoComplete="current-password"
+                    />
+                    <Button
+                  style={{
+                    color: 'white',
+                    backgroundColor: '#2B4162',
+                    marginTop: '10px'
+                  }}
+                  fluid
+                  size="large"
+                  type="submit"
+                  onClick={handleSubmit}>
+                  Login
+                </Button>
+                    {loginCreds.err && (
+                    <div className="error-container">{loginCreds.err}</div>
+                    )}
+                </Segment>
+            </form>
+      </Grid.Column>
+    </Grid>
   );
 };
 export default Login;
