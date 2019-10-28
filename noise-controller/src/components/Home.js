@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import ScoresList from './ScoresList';
 import { connect } from 'react-redux';
 import { deleteAnimal, updateSingleAnimal, toggleShowUpdate } from '../actions';
+import Nav from './Nav';
 
 class Home extends Component {
     handleDeleteAnimal = () => {
@@ -21,6 +22,8 @@ class Home extends Component {
 
     render() {
         return (
+            <>
+            <Nav />
             <div className="Animal-Container">
                 <ul className="Animal-List">
                     {this.props.animals.map(animal => {
@@ -51,6 +54,7 @@ class Home extends Component {
                     <img src={logo} className="App-logo" alt="logo" />
                 ) : null}
             </div>
+            </>
         );
     }
 }
@@ -60,6 +64,7 @@ function Home(props) {
 
     return (
         <div>
+            <Nav />
             <ScoresList  />
         </div>
     );
