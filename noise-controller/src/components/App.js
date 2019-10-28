@@ -11,15 +11,6 @@ function App() {
   return (
     <div className="App">
 
-  <ScoreCard />
-
-    {/* <Route
-      exact
-      path='/scorelist/:id'
-      component = {props => <ScoresList {...props} teachers={teachers} />}
-    /> */}
-
-
     </div>
   );
 }
