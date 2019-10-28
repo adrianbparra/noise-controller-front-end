@@ -5,28 +5,50 @@ import Signup from './Signup';
 import PrivateRoute from './PrivateRoute';
 import Login from './Login';
 import Home from './Home';
+import ScoreCard from './ScoreCard';
+import ClassSignUp from './ClassSignUp';
 import axiosWithAuth from '../axiosWithAuth';
 
 function App() {
   return (
     <div className="App">
-
-    <h1>NOISE!!</h1>
     <Signup />
 
     <BrowserRouter>
       <Switch>
+        <Route 
+          exact
+          path='/signup'
+          component={props => <Signup {...props} />}
+        />
+
         <Route
           exact
           path="/"
           component={props => <Login {...props} />}
         /> 
 
+        <Route
+          exact
+          path='/classform'
+          component={props => <ClassSignUp {...props} />}
+        />
+
         <PrivateRoute
           exact
           path="/home"
           component={props => <Home {...props} />}
         />
+
+
+
+        <PrivateRoute
+          exact
+          path='/score'
+          component={props => <ScoreCard {...props} />}
+        />
+
+
       </Switch>
     </BrowserRouter>
     
