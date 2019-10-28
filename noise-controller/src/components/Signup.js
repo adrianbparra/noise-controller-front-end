@@ -123,7 +123,7 @@ const [signupCreds, setSignupCreds] = useState({
             </Segment>
           </form>
           <Message>
-            {/* Already have an account? <Link to='/login'>Log in</Link> */}
+            Already have an account? <Link to='/login'>Log in</Link>
           </Message>
       </Grid.Column>
     </Grid>
