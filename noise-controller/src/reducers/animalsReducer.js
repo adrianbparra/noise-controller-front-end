@@ -31,7 +31,7 @@ export const animalsReducer = (state = initialState, action) => {
             return {
         ...state,
         gettingAnimals: false,
-        creatingAnimals: false,
+        creatingAnimal: false,
         deletingAnimal: false,
         updatingAnimal: false,
         error: action.payload

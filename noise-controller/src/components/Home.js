@@ -3,61 +3,61 @@ import React, {Component } from 'react';
 import React, { useState } from 'react';
 import ScoresList from './ScoresList';
 import { connect } from 'react-redux';
-import { deleteAnimal, updateSingleAnimal, toggleShowUpdate } from '../actions';
+//import { deleteAnimal, updateSingleAnimal, toggleShowUpdate } from '../actions';
 import Nav from './Nav';
 
-class Home extends Component {
-    handleDeleteAnimal = () => {
-        const{ id } = this.props.animalSelected;
-        this.props.deleteAnimal(id);
-    };
+// class Home extends Component {
+//     handleDeleteAnimal = () => {
+//         const{ id } = this.props.animalSelected;
+//         this.props.deleteAnimal(id);
+//     };
 
-    handleShowAnimal = animal => {
-        this.props.updateSingleAnimal(animal);
-    };
+//     handleShowAnimal = animal => {
+//         this.props.updateSingleAnimal(animal);
+//     };
 
-    toggleShowUpdate = () => {
-        this.props.toggleShowUpdate();
-    };
+//     toggleShowUpdate = () => {
+//         this.props.toggleShowUpdate();
+//     };
 
-    render() {
-        return (
-            <>
-            <Nav />
-            <div className="Animal-Container">
-                <ul className="Animal-List">
-                    {this.props.animals.map(animal => {
-                        return (
-                            <li onClick={() =>
-                            this.handlerShowAnimal(animal)}
-                            key={animal.id}>
-                                {animal.name}
-                            </li>
-                        );
-                    })}
-                </ul>
-                {Object.keys
-                (this.props.animalSelected).length > 0 ?(
-                    <SelectedAnimal
-                        handleShowAnimal={this.handleShowAnimal}
-                        toggleShowUpdate={this.toggleShowUpdate}
-                        handleDeleteAnimal={this.handleDeleteAnimal}
-                        selected={this.props.animalSelected}
-                    />
-                ) : null}
-                {/* {this.props.showUpdate ? (
-                    <UpdateSignupForm friend={this.props.animalSelected} />
-                ) : null} */}
+//     render() {
+//         return (
+//             <>
+//             <Nav />
+//             <div className="Animal-Container">
+//                 <ul className="Animal-List">
+//                     {this.props.animals.map(animal => {
+//                         return (
+//                             <li onClick={() =>
+//                             this.handlerShowAnimal(animal)}
+//                             key={animal.id}>
+//                                 {animal.name}
+//                             </li>
+//                         );
+//                     })}
+//                 </ul>
+//                 {Object.keys
+//                 (this.props.animalSelected).length > 0 ?(
+//                     <SelectedAnimal
+//                         handleShowAnimal={this.handleShowAnimal}
+//                         toggleShowUpdate={this.toggleShowUpdate}
+//                         handleDeleteAnimal={this.handleDeleteAnimal}
+//                         selected={this.props.animalSelected}
+//                     />
+//                 ) : null}
+//                 {/* {this.props.showUpdate ? (
+//                     <UpdateSignupForm friend={this.props.animalSelected} />
+//                 ) : null} */}
 
-                {/* //Need to input logo */}
-                {this.props.deletingAnimal ? (
-                    <img src={logo} className="App-logo" alt="logo" />
-                ) : null}
-            </div>
-            </>
-        );
-    }
-}
+//                 {/* //Need to input logo */}
+//                 {this.props.deletingAnimal ? (
+//                     <img src={logo} className="App-logo" alt="logo" />
+//                 ) : null}
+//             </div>
+//             </>
+//         );
+//     }
+// }
 
 function Home(props) {
 
@@ -72,18 +72,18 @@ function Home(props) {
 
 export default Home;
 
-const mapStateToProps = state => {
-    return {
-/**Need to include all reducer forms */
-        deletingAnimal: state.animalsReducer.animalsFriend,
-        error: state.animalsReducer.error,
-        showUpdate: state.singleAnimalReducer.showUpdate,
-        animalSelected: state.singleAnimalReducer.animalSelected
-    }; 
-};
+// const mapStateToProps = state => {
+//     return {
+// /**Need to include all reducer forms */
+//         deletingAnimal: state.animalsReducer.animalsFriend,
+//         error: state.animalsReducer.error,
+//         showUpdate: state.singleAnimalReducer.showUpdate,
+//         animalSelected: state.singleAnimalReducer.animalSelected
+//     }; 
+// };
 
-export default connect(mapStateToProps, {
-    deleteAnimal,
-    updateSingleAnimal,
-    toggleShowUpdate,
-})(Animals);
+// export default connect(mapStateToProps, {
+//     deleteAnimal,
+//     updateSingleAnimal,
+//     toggleShowUpdate,
+// })(Animals);

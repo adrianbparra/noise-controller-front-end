@@ -1,15 +1,15 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch, BrowserRouter } from 'react-router-dom';
 import '../App.css';
-import Signup from './Signup';
-import PrivateRoute from './PrivateRoute';
-import Logout from './Logout';
-import Login from './Login';
-import Home from './Home';
-import ScoreCard from './ScoreCard';
-import ClassSignUp from './ClassSignUp';
-import Settings from './Settings';
-import axiosWithAuth from '../axiosWithAuth';
+import Signup from './components/Signup';
+import PrivateRoute from './components/PrivateRoute';
+import Logout from './components/Logout';
+import Login from './components/Login';
+import Home from './components/Home';
+import ScoreCard from './components/ScoreCard';
+import ClassSignUp from './components/ClassSignUp';
+import Settings from './components/Settings';
+import axiosWithAuth from './axiosWithAuth';
 
 
 function App() {
