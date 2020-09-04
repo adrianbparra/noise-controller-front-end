@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import "semantic-ui-css/semantic.min.css";
 
 import Signup from './components/Signup';
-import PrivateRoute from './components/PrivateRoute';
+import PrivateRoute from './auth/PrivateRoute';
 import Logout from './components/Logout';
 import Login from './components/Login';
 import Home from './components/Home';
@@ -71,7 +71,7 @@ function App() {
 
         <PrivateRoute
           exact
-          path='/classes/:className'
+          path='/classes/:name'
           component={props => <ClassSignUp {...props}/>}
         />
 
@@ -89,7 +89,7 @@ function App() {
 
         <PrivateRoute
           exact
-          path='/:className/scores'
+          path='/:name/scores'
           component={props => <ScoreList {...props} />}
         />
         

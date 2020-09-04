@@ -5,6 +5,8 @@ import { Form, Header, Message, Segment } from 'semantic-ui-react';
 import { Formik } from "formik";
 import * as yup from "yup";
 
+import { useMutation } from '@apollo/client';
+import {SIGN_UP_USER} from "./queries/queries";
 
 const yupValidation = yup.object().shape({
   email: yup.string().email("Please enter a valid email").required("Please enter your email"),
@@ -25,7 +27,7 @@ const title = [
 
 const Signup = props => {
 
-
+  const [SIGN_UP, {loading, data}] = useMutation(SIGN_UP_USER)
 
   return (
     <Segment>
@@ -37,6 +39,7 @@ const Signup = props => {
         <Formik
         initialValues={{
           email: "",
+          title: "",
           firstName: "",
           lastName: "",
           password: "",
@@ -45,6 +48,13 @@ const Signup = props => {
         validationSchema={yupValidation}
         onSubmit={(values) => {
           console.log(values)
+          SIGN_UP({variables:{
+            email: values.email,
+            title: values.title,
+            firstName: values.firstName,
+            lastName: values.lastName,
+            password: values.password,
+          }})
         }}
         
         validateOnChange={false}

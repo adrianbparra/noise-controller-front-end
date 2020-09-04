@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { Formik } from "formik";
 import * as yup from "yup";
 
+import { useLazyQuery } from '@apollo/client';
+import {LOGIN_USER} from "./queries/queries";
 
 import { Header, Form, Message, Segment } from 'semantic-ui-react';
 
@@ -13,8 +15,11 @@ const yupValidation = yup.object().shape({
   password: yup.string().min(8,"Password must be at least 8 characters").required("Please enter your password")
 })
 
+
+
 const Login = props => {
 
+  const [LOGIN, {loading, data}] = useLazyQuery(LOGIN_USER)
 
 
   return (
@@ -30,6 +35,10 @@ const Login = props => {
         validationSchema={yupValidation}
         onSubmit={(values) => {
           console.log(values)
+          LOGIN({variables: {
+            email: values.email,
+            password: values.password 
+          }})
         }}
         
         validateOnChange={false}
