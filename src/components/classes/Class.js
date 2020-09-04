@@ -14,7 +14,7 @@ function Class(props) {
     const editClass = e =>{
 
         props.selectCurrentClass(cls)
-        history.push(`/classes/${cls.className}`)
+        history.push(`/classes/${cls.name}`)
 
     }
 
@@ -30,7 +30,7 @@ function Class(props) {
                 
                 <Button color="red" icon="delete" content="Delete" onClick={handleDelete}/>
             </Table.Cell>
-            <Table.Cell>{cls.className}</Table.Cell>
+            <Table.Cell>{cls.name}</Table.Cell>
             <Table.Cell>{cls.grade}</Table.Cell>
             <Table.Cell>{cls.numberOfKids}</Table.Cell>
             <Table.Cell >{cls.streak}</Table.Cell>

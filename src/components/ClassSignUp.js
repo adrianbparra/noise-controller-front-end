@@ -27,7 +27,7 @@ const ClassSignUp = props => {
 
   const [header, setHeader] = useState("")
   const [classSignupCreds, setClassSignupCreds] = useState({
-      className: "",
+      name: "",
       theme: "Farm",
       grade: "Kindergarten",
       numberOfKids: "" ,
@@ -35,7 +35,7 @@ const ClassSignUp = props => {
   });
 
   useEffect(()=>{
-    if(params["className"]=== props.selectedClass.className){
+    if(params["name"]=== props.selectedClass.name){
       setClassSignupCreds(props.selectedClass)
       setHeader("Edit Class")
     } else if( Object.keys(params).length === 0) {
@@ -68,7 +68,7 @@ const ClassSignUp = props => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    if(params["className"]){
+    if(params["name"]){
       props.editClass(classSignupCreds)
     }else {
       props.addClass(classSignupCreds)
@@ -80,7 +80,7 @@ const ClassSignUp = props => {
     
     <Segment>
       
-      {params["className"] === props.selectedClass.className &&<Button color="red" floated="right" icon="delete" content="Delete Class" onClick={handleDelete}/> }
+      {params["name"] === props.selectedClass.name &&<Button color="red" floated="right" icon="delete" content="Delete Class" onClick={handleDelete}/> }
         <Header as="h3" textAlign="center">{header}</Header>
         
         <Divider/>
@@ -90,8 +90,8 @@ const ClassSignUp = props => {
           control={Input}
           label="Class Name"
           placeholder="Class Name"
-          name="className"
-          value={classSignupCreds.className}
+          name="name"
+          value={classSignupCreds.name}
           onChange={handleChange}
         />
           

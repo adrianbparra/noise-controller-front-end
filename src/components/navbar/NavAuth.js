@@ -1,23 +1,34 @@
 import React from "react";
-import {connect} from "react-redux" 
 import { Link } from 'react-router-dom';
-
 import NavSettings from "./NavSettings.js";
+import {  Menu, Dropdown, Icon } from 'semantic-ui-react';
+
+import {connect} from "react-redux" 
+import { useLazyQuery } from '@apollo/client';
+
+import {GET_CLASSES} from "../queries/queries.js";
+
+
 import {selectCurrentClass} from "../../actions/classesAction";
 
-import {  Menu, Dropdown, Icon } from 'semantic-ui-react';
+
+
+
 
 function NavAuth(props) {
   const [isMobile, setMobile] = React.useState(getWindowWidth())
+  const [loadClasses, { called,loading, data} ] = useLazyQuery(GET_CLASSES);
  
 
   // React.useEffect(()=>{
 
-  //   setSelectedClass(props.selectedClass.className)
+  //   setSelectedClass(props.selectedClass.name)
 
   // },[props.selectedClass])
-  
+
   React.useEffect(()=>{
+
+    localStorage.getItem("token") && loadClasses()
     
     function handleResize() {
       setMobile(getWindowWidth());
@@ -27,6 +38,8 @@ function NavAuth(props) {
     return () => window.removeEventListener('resize', handleResize);
     
   },[])
+
+  
 
   function getWindowWidth(){
     const { innerWidth} = window;
@@ -39,16 +52,17 @@ function NavAuth(props) {
     //action for currently Selected Class
     props.selectCurrentClass(cls)
   }
+  
 
 
   // Will check if there is a token as well
-  if(props.account.username && localStorage.getItem("token")){
-
+  if(localStorage.getItem("token")){
+    
     return (
       <>
       <Dropdown
         item 
-        text={!props.selectedClass.className ? "Class" :  isMobile ? `${props.selectedClass.className.slice(0,10)}...`: props.selectedClass.className}
+        text={!true ? "Class" :  isMobile ? `${"longclass name".slice(0,10)}...`: "props.selectedClass.name"}
         simple
         scrolling
       >
@@ -63,16 +77,17 @@ function NavAuth(props) {
           >
             All Classes
           </Menu.Item>
-          {props.classes ? props.classes.map(cls=>{
+          {data && data.classes.map(cls=>{
             return(
             <Menu.Item
+              key={cls.id}
               onClick={()=>changeClass(cls)}
               tabIndex="0"
             >
-              {cls.className}
+              {cls.name}
             </Menu.Item>
             )
-          }): ""}
+          })}
 
         </Menu.Menu>
 
@@ -97,7 +112,7 @@ function NavAuth(props) {
 
       </>
     )
-  } else if ( props.account) {
+  } else {
     return (
       <Menu.Menu position="right">
         <Menu.Item
@@ -115,16 +130,13 @@ function NavAuth(props) {
 
       </Menu.Menu>
     )
-  } else {
-    return null
   }
-    
 }
 
-const mapStatetoProps = state=>({
-  account: state.accountReducer,
-  classes: state.classReducer.classes,
-  selectedClass: state.classReducer.selectedClass
-})
+// const mapStatetoProps = state=>({
+//   account: state.accountReducer,
+//   classes: state.classReducer.classes,
+//   selectedClass: state.classReducer.selectedClass
+// })
 
-export default connect(mapStatetoProps,{selectCurrentClass})(NavAuth)
+export default NavAuth

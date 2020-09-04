@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+
 import {connect} from "react-redux";
+
 
 import NavAuth from "./NavAuth.js";
 
@@ -16,7 +18,6 @@ margin-bottom: 6rem!important;
 
 
 function NavBar(props) {
-  
 
   return (
     <Menu as={MenuStyled}>
@@ -38,4 +39,5 @@ const mapStatetoProps = state=>({
   classes: state.classReducer.classes,
   selectedClass: state.classReducer.selectedClass
 })
-export default connect(mapStatetoProps,{})(NavBar);
+
+export default NavBar;

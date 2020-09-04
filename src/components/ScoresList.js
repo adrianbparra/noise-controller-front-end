@@ -13,9 +13,9 @@ const ScoresList = props => {
 
     useEffect(() => {
         console.log("class  change")
-        if(props.selectedClass.className && props.match.params.className !== props.selectedClass.className){
+        if(props.selectedClass.name && props.match.params.name !== props.selectedClass.name){
             props.getScores(props.selectedClass.id)
-            let path =  "/" + props.selectedClass.className + "/scores";
+            let path =  "/" + props.selectedClass.name + "/scores";
             history.push(path, props.selectedClass)
         }
     }, [props.selectedClass]);
@@ -23,9 +23,9 @@ const ScoresList = props => {
     useEffect(()=> {
         console.log("match change", props.match.params)
         
-        let [classUrl] = props.classes.filter(cls => cls.className === props.match.params.className)
+        let [classUrl] = props.classes.filter(cls => cls.name === props.match.params.name)
         
-        if(props.match.params.className !== props.selectedClass.className){
+        if(props.match.params.name !== props.selectedClass.name){
                 console.log(props.match.params)
             
                 props.selectCurrentClass(classUrl)
@@ -41,7 +41,7 @@ const ScoresList = props => {
     return (
         <Segment>
             <Header as="h2" textAlign="center">
-               Scores for {props.selectedClass.className}
+               Scores for {props.selectedClass.name}
             </Header>
             <Table celled>
                 <Table.Header>

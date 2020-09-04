@@ -17,12 +17,12 @@ function NavSettings(props) {
             <Menu.Item
             //   onClick={handleMenuChange}
               onClick={ ()=> {
-                let path = "/"+props.selectedClass.className + "/scores"
+                let path = "/"+props.selectedClass.name + "/scores"
                 history.push(path ,props.selectedClass)
               }}
               tabindex="0"
               name="scores"
-              disabled={props.selectedClass.className ? false: true}
+              // disabled={props.selectedClass.name ? false: true}
             />
   
             <Menu.Item
@@ -47,4 +47,4 @@ const mapStatetoProps = state => ({
     selectedClass: state.classReducer.selectedClass
 })
 
-export default connect(mapStatetoProps,{})(NavSettings);
+export default NavSettings
