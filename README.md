@@ -54,16 +54,24 @@ Coming Soon
 
 ## Deployment
 
-Will be deployed to Netlify.
+Not Deployed at the moment
 
 ## Built With
 
 * [Reactjs.org](https://reactjs.org/docs/getting-started.html) - Created using React
+* [Redux.org](https://redux.js.org/) - Redux State Management
+* [Formik.org](https://formik.org/) - Form Management
+* [apollographql.com](https://www.apollographql.com/docs/react/get-started/) - Apollo GraphQL State Management
+* [Graphql.org](https://graphql.org/) - GraphQL query language
+
+
+
+
 
 
 ## Contributing
 
-Please try to contribute if you can. Create your pull request to me.
+Please try to contribute if you can. Email me if you would like to contribute.
 
 ## Versioning
 
@@ -85,5 +93,3 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 ## Acknowledgments
 
 * Hat tip to anyone whose code was used
-* Inspiration
-* etc
