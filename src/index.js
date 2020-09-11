@@ -5,7 +5,7 @@ import App from './App';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 //Apollo
-import { ApolloClient, InMemoryCache, ApolloProvider, gql } from '@apollo/client';
+import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@apollo/client';
 
 
 import { Provider } from 'react-redux';
@@ -15,9 +15,15 @@ import { applyMiddleware, createStore } from 'redux';
 import  reducer  from "./reducers/index";
 
 //Apollo Client
-const client = new ApolloClient({
+
+const link = createHttpLink({
     uri: 'http://localhost:4000/graphql',
-    cache: new InMemoryCache()
+    credentials: 'include'
+  });
+  
+const client = new ApolloClient({
+    cache: new InMemoryCache(),
+    link
 });
 
 

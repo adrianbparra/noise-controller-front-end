@@ -64,11 +64,6 @@ Not Deployed at the moment
 * [apollographql.com](https://www.apollographql.com/docs/react/get-started/) - Apollo GraphQL State Management
 * [Graphql.org](https://graphql.org/) - GraphQL query language
 
-
-
-
-
-
 ## Contributing
 
 Please try to contribute if you can. Email me if you would like to contribute.

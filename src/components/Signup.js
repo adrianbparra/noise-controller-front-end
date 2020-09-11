@@ -27,9 +27,12 @@ const title = [
 
 const Signup = props => {
 
-  const [SIGN_UP, {loading, data}] = useMutation(SIGN_UP_USER)
+  const [SIGN_UP, {loading, data, error}] = useMutation(SIGN_UP_USER)
+
+  console.log("loading:", loading, "data:", data, "error:", error)
 
   return (
+    <>
     <Segment>
       
         <Header as='h1' textAlign="center">
@@ -145,6 +148,7 @@ const Signup = props => {
               type='submit'
               onClick={props.handleSubmit}
               disabled={!Object.keys(props.errors).length == 0}
+              loading={loading}
             >
               Submit
             </Form.Button>
@@ -158,6 +162,16 @@ const Signup = props => {
         </Message>
       
     </Segment>
+
+    <Message
+      hidden={error || data ? false : true}
+      success={data}
+      negative={error}
+      header={`Your user registration ${error ? "failed": "was Succesful"}`}
+      // error.message is not specific. unable to fix on back end at the moment
+      content={error ? error.message : `You can sign in know`}
+    />
+    </>
   );
 };
 export default Signup;

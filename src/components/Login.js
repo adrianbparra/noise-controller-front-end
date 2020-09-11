@@ -19,10 +19,12 @@ const yupValidation = yup.object().shape({
 
 const Login = props => {
 
-  const [LOGIN, {loading, data}] = useLazyQuery(LOGIN_USER)
+  const [LOGIN, {loading, data, error, called, variables}] = useLazyQuery(LOGIN_USER)
 
+  console.log("loading:",loading,"data:", data,"error:", error,"called:", called,"variables:", variables)
 
   return (
+    <>
     <Segment>
       
       <Header as="h1" textAlign="center">Login</Header>
@@ -75,6 +77,7 @@ const Login = props => {
             />
 
             <Form.Button
+              loading={loading}
               fluid
               color="primary"
               size="large"
@@ -93,6 +96,15 @@ const Login = props => {
         </Message>
   
     </Segment>
+
+    <Message
+      hidden={error ? false : true}
+      negative={error}
+      header="Your login failed" 
+      content={error ? error.message : ""}
+    />
+
+    </>
   );
 };
 export default Login;
