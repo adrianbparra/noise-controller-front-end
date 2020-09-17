@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import axios from "axios";
 import { Link } from 'react-router-dom';
 import { Formik } from "formik";
 import * as yup from "yup";
 
-import { useLazyQuery } from '@apollo/client';
-import {LOGIN_USER} from "./queries/queries";
+import { useMutation } from '@apollo/client';
+import {LOGIN_USER,USER} from "../queries/queries";
 
 import { Header, Form, Message, Segment } from 'semantic-ui-react';
 
@@ -19,9 +19,15 @@ const yupValidation = yup.object().shape({
 
 const Login = props => {
 
-  const [LOGIN, {loading, data, error, called, variables}] = useLazyQuery(LOGIN_USER)
-
+  const [login, {loading, data, error, called, variables}] = useMutation(LOGIN_USER,{refetchQueries: [{query: USER}]})
   console.log("loading:",loading,"data:", data,"error:", error,"called:", called,"variables:", variables)
+
+  useEffect(()=>{
+    if(data){
+      props.history.push("/")
+    }
+    console.log(props)
+  },[data])
 
   return (
     <>
@@ -37,7 +43,7 @@ const Login = props => {
         validationSchema={yupValidation}
         onSubmit={(values) => {
           console.log(values)
-          LOGIN({variables: {
+          login({variables: {
             email: values.email,
             password: values.password 
           }})
