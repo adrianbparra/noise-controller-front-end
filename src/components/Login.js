@@ -1,11 +1,12 @@
-import React, { useEffect } from "react";
-import axios from "axios";
+import React, { useState, useContext } from "react";
 import { Link } from 'react-router-dom';
 import { Formik } from "formik";
 import * as yup from "yup";
 
 import { useMutation } from '@apollo/client';
 import {LOGIN_USER,USER} from "../queries/queries";
+
+// import { AuthContext } from "../context/auth.js";
 
 import { Header, Form, Message, Segment } from 'semantic-ui-react';
 
@@ -18,16 +19,23 @@ const yupValidation = yup.object().shape({
 
 
 const Login = props => {
+  // const context = useContext(AuthContext);
 
-  const [login, {loading, data, error, called, variables}] = useMutation(LOGIN_USER,{refetchQueries: [{query: USER}]})
-  console.log("loading:",loading,"data:", data,"error:", error,"called:", called,"variables:", variables)
+  const [gqlResponse,setGqlResponse] = useState({});
 
-  useEffect(()=>{
-    if(data){
+  const [Login, {loading}] = useMutation(LOGIN_USER,{
+    update(proxy, {data: {login: userData}}){
+      console.log(userData)
+      // context.login(userData)
       props.history.push("/")
+    },onError(err){
+      // console.log(err)
+      if (err.graphQLErrors){
+        setGqlResponse({error: true, message: err.message, ...err.graphQLErrors[0].extensions.exception.errors })
+
+      }
     }
-    console.log(props)
-  },[data])
+  })
 
   return (
     <>
@@ -43,10 +51,7 @@ const Login = props => {
         validationSchema={yupValidation}
         onSubmit={(values) => {
           console.log(values)
-          login({variables: {
-            email: values.email,
-            password: values.password 
-          }})
+          Login({variables: values})
         }}
         
         validateOnChange={false}
@@ -63,10 +68,11 @@ const Login = props => {
               value={props.values.email}
               onChange={(e) => {
                 props.setErrors({})
+                setGqlResponse({})
                 props.handleChange(e)
               }}
               autoComplete="email"
-              error={props.errors.email}
+              error={props.errors.email || gqlResponse.email}
             />
             <Form.Input
               label="Password"
@@ -76,10 +82,11 @@ const Login = props => {
               value={props.values.password}
               onChange={(e) => {
                 props.setErrors({})
+                setGqlResponse({})
                 props.handleChange(e)
               }}
               autoComplete="current-password"
-              error={props.errors.password}
+              error={props.errors.password || gqlResponse.password}
             />
 
             <Form.Button
@@ -88,7 +95,9 @@ const Login = props => {
               color="primary"
               size="large"
               type="submit"
-              onClick={props.handleSubmit}>
+              onClick={props.handleSubmit}
+              disabled={!Object.keys(props.errors).length === 0 || !Object.keys(gqlResponse).length === 0}
+              >
               Submit
             </Form.Button>
               
@@ -103,12 +112,15 @@ const Login = props => {
   
     </Segment>
 
-    <Message
-      hidden={error ? false : true}
-      negative={error}
-      header="Your login failed" 
-      content={error ? error.message : ""}
-    />
+    {
+      (Object.keys(gqlResponse).length > 0 && 
+      <Message
+        hidden={gqlResponse ? false : true}
+        success={gqlResponse.success}
+        negative={gqlResponse.error}
+        header={ gqlResponse.message? gqlResponse.message : ""}
+      />)
+    }
 
     </>
   );

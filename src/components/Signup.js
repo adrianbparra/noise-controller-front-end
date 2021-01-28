@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import { Link } from 'react-router-dom';
 import { Form, Header, Message, Segment } from 'semantic-ui-react';
 
@@ -26,10 +26,23 @@ const title = [
 
 
 const Signup = props => {
+  const [gqlResponse,setGqlResponse] = useState({})
+  
+  const [SIGN_UP, {loading}] = useMutation(SIGN_UP_USER,{
+    update(proxy, result){
+      console.log(result)
+      props.history.push("/")
+      // setGqlResponse({success: true, message: `You may login now ${result.title}${result.lastName}`})
+    },onError(err){
+      // console.log(err)
+      if (err.graphQLErrors){
+        setGqlResponse({error: true, message: err.message, ...err.graphQLErrors[0].extensions.exception.errors })
 
-  const [SIGN_UP, {loading, data, error}] = useMutation(SIGN_UP_USER)
+      }
+    }
+  })
 
-  console.log("loading:", loading, "data:", data, "error:", error)
+  // console.log("loading:", loading, "data:", data, "errors:", errors)
 
   return (
     <>
@@ -51,13 +64,7 @@ const Signup = props => {
         validationSchema={yupValidation}
         onSubmit={(values) => {
           console.log(values)
-          SIGN_UP({variables:{
-            email: values.email,
-            title: values.title,
-            firstName: values.firstName,
-            lastName: values.lastName,
-            password: values.password,
-          }})
+          SIGN_UP({variables:values})
         }}
         
         validateOnChange={false}
@@ -72,10 +79,11 @@ const Signup = props => {
               value={props.values.email}
               onChange={(e) => {
                 props.setErrors({})
+                setGqlResponse({})
                 props.handleChange(e)
               }}
               autoComplete="email"
-              error={props.errors.email}
+              error={props.errors.email || gqlResponse.email}
             />
             <Form.Select
               label="Title"
@@ -83,7 +91,11 @@ const Signup = props => {
               name="title"
               options={title}
               value={props.values.title}
-              onChange={(e,results) => props.setFieldValue("title", results.value) && props.setErrors({})}
+              onChange={(e,results) => {
+                props.setFieldValue("title", results.value)
+                props.setErrors({})
+                setGqlResponse({})
+              }}
               error={props.errors.title}
               fluid
             />
@@ -95,6 +107,7 @@ const Signup = props => {
               value={props.values.firstName}
               onChange={(e) => {
                 props.setErrors({})
+                setGqlResponse({})
                 props.handleChange(e)
               }}
               autoComplete="first name"
@@ -108,6 +121,7 @@ const Signup = props => {
               value={props.values.lastName}
               onChange={(e) => {
                 props.setErrors({})
+                setGqlResponse({})
                 props.handleChange(e)
               }}
               autoComplete="last name"
@@ -122,9 +136,10 @@ const Signup = props => {
               value={props.values.password}
               onChange={(e) => {
                 props.setErrors({})
+                setGqlResponse({})
                 props.handleChange(e)
               }}
-              error={props.errors.password}
+              error={props.errors.password || gqlResponse.password}
             />
             
             <Form.Input
@@ -135,6 +150,7 @@ const Signup = props => {
               value={props.values.confirmPassword}
               onChange={(e) => {
                 props.setErrors({})
+                setGqlResponse({})
                 props.handleChange(e)
               }}
               error={props.errors.confirmPassword}
@@ -147,7 +163,7 @@ const Signup = props => {
               size='large'
               type='submit'
               onClick={props.handleSubmit}
-              disabled={!Object.keys(props.errors).length == 0}
+              disabled={!Object.keys(props.errors).length == 0 || !Object.keys(gqlResponse).length == 0}
               loading={loading}
             >
               Submit
@@ -162,16 +178,19 @@ const Signup = props => {
         </Message>
       
     </Segment>
-
-    <Message
-      hidden={error || data ? false : true}
-      success={data}
-      negative={error}
-      header={`Your user registration ${error ? "failed": "was Succesful"}`}
-      // error.message is not specific. unable to fix on back end at the moment
-      content={error ? error.message : `You can sign in know`}
-    />
+    
+    {
+      (Object.keys(gqlResponse).length > 0 && 
+      <Message
+        hidden={gqlResponse ? false : true}
+        success={gqlResponse.success}
+        negative={gqlResponse.error}
+        header={ gqlResponse.message? gqlResponse.message : ""}
+      />)
+    }
+    
     </>
   );
 };
+
 export default Signup;
