@@ -68,18 +68,11 @@ Not Deployed at the moment
 
 Please try to contribute if you can. Email me if you would like to contribute.
 
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning.
-
 ## Authors
 
 * **Adrian Parra** - [AdrianbParra](https://github.com/adrianbparra)
 * **Brandy Rimes** - *Initial work* - [Brimes7](https://github.com/Brimes7)
 * **Julian Yates** - *Initial work* - [Julian2323](https://github.com/Julian2323)
-
-
-
 
 ## License
 

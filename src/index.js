@@ -17,8 +17,7 @@ import  reducer  from "./reducers/index";
 //Apollo Client
 
 const link = createHttpLink({
-    uri: 'http://localhost:4000/graphql',
-    credentials: 'include'
+    uri: 'http://localhost:4000'
   });
   
 const client = new ApolloClient({
@@ -28,7 +27,7 @@ const client = new ApolloClient({
 
 
 
-const store = createStore(reducer, applyMiddleware(thunk, logger));
+// const store = createStore(reducer, applyMiddleware(thunk, logger));
 
 
 
