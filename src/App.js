@@ -2,6 +2,9 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import "semantic-ui-css/semantic.min.css";
 
+import { AuthProvider } from "./auth/auth.js";
+import AuthRoute from "./auth/AuthRoute.js";
+
 import Signup from './components/Signup';
 import PrivateRoute from './auth/PrivateRoute';
 import Logout from './components/Logout';
@@ -30,83 +33,78 @@ const ContStyled = styled.div`
 function App() {
   return (
     
+    <AuthProvider>
+      <ContStyled as={Container}>
 
-    <ContStyled as={Container}>
+        <Router>
 
-    <Router>
+          <NavBar/>
 
-      <NavBar/>
+          <Switch> 
 
-      <Switch> 
+            {/* <Route 
+              exact
+              path='/'
+              component={props => <AnimalPage {...props} />}
+            /> */}
 
-        {/* <Route 
-          exact
-          path='/'
-          component={props => <AnimalPage {...props} />}
-        /> */}
+            <AuthRoute
+              exact
+              path="/signup"
+              component={props => <Signup {...props} />}
+            />
 
-        <Route
-          exact
-          path="/signup"
-          component={props => <Signup {...props} />}
-        />
+            <AuthRoute
+              exact
+              path="/login"
+              component={props => <Login {...props} />}
+            />
 
-        <Route
-          exact
-          path="/login"
-          component={props => <Login {...props} />}
-        />
+            <PrivateRoute
+              exact
+              path='/classform'
+              component={props => <ClassSignUp {...props} />}
+            />
 
-        <Route
-          exact
-          path="/logout"
-          component={props => <Logout {...props} />}
-        />
+            <PrivateRoute
+              exact
+              path='/classes/:name'
+              component={props => <ClassSignUp {...props}/>}
+            />
 
-        <PrivateRoute
-          exact
-          path='/classform'
-          component={props => <ClassSignUp {...props} />}
-        />
+            <PrivateRoute
+              exact
+              path="/home"
+              component={props => <Home {...props} />}
+            />
 
-        <PrivateRoute
-          exact
-          path='/classes/:name'
-          component={props => <ClassSignUp {...props}/>}
-        />
+            <PrivateRoute
+              exact
+              path='/settings'
+              component={props => <Settings {...props} />}
+            />
 
-        <PrivateRoute
-          exact
-          path="/home"
-          component={props => <Home {...props} />}
-        />
+            <PrivateRoute
+              exact
+              path='/:name/scores'
+              component={props => <ScoreList {...props} />}
+            />
+            
+            <PrivateRoute
+              exact
+              path='/classes'
+              component={props => <Classes {...props} />}
+            />
 
-        <PrivateRoute
-          exact
-          path='/settings'
-          component={props => <Settings {...props} />}
-        />
+            <Route path="*">
+              <div>Lost? Where are you?</div>
+            </Route>
 
-        <PrivateRoute
-          exact
-          path='/:name/scores'
-          component={props => <ScoreList {...props} />}
-        />
-        
-        <PrivateRoute
-          exact
-          path='/classes'
-          component={props => <Classes {...props} />}
-        />
-
-        <Route path="*">
-          <div>Lost? Where are you?</div>
-        </Route>
-
-      </Switch>
-      
-    </Router>
-    </ContStyled>
+          </Switch>
+          
+        </Router>
+      </ContStyled>
+    </AuthProvider>
     
   );
 }

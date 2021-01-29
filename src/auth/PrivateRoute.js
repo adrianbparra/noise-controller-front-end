@@ -1,19 +1,21 @@
-// It checks if the user is authenticated, if they are,
-// it renders the "component" prop. If not, it redirects
-// the user to /login.
-import React from 'react';
+import React, { useContext } from 'react';
 import  { Route, Redirect } from 'react-router-dom';
 
-const PrivateRoute = ({ component: Component, ...rest }) => (
-  <Route
-    {...rest}
-    render={props =>
-      localStorage.getItem('token') ? (
-        <Component {...props} />
-      ) : (
-        <Redirect to='/Login' />
-      )
-    }
-  />
-);
+import { AuthContext } from "../auth/auth.js";
+
+
+function PrivateRoute ({ component: Component, ...rest }) {
+  const { user } = useContext(AuthContext)
+
+  return (
+    <Route
+      {...rest}
+      render={props =>
+        user ? <Component {...props} /> : <Redirect to='/Login' />
+      }
+    />
+
+  )
+
+};
 export default PrivateRoute;

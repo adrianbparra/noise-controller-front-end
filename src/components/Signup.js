@@ -1,9 +1,11 @@
-import React,{useState} from "react";
+import React, {useState, useContext} from "react";
 import { Link } from 'react-router-dom';
 import { Form, Header, Message, Segment } from 'semantic-ui-react';
 
 import { Formik } from "formik";
 import * as yup from "yup";
+
+import { AuthContext } from "../auth/auth.js";
 
 import { useMutation } from '@apollo/client';
 import {SIGN_UP_USER} from "../queries/queries";
@@ -26,15 +28,14 @@ const title = [
 
 
 const Signup = props => {
+  const context = useContext(AuthContext)
   const [gqlResponse,setGqlResponse] = useState({})
   
   const [SIGN_UP, {loading}] = useMutation(SIGN_UP_USER,{
-    update(proxy, result){
-      console.log(result)
+    update(proxy, {data: {register: userData}}){
+      context.login(userData)
       props.history.push("/")
-      // setGqlResponse({success: true, message: `You may login now ${result.title}${result.lastName}`})
     },onError(err){
-      // console.log(err)
       if (err.graphQLErrors){
         setGqlResponse({error: true, message: err.message, ...err.graphQLErrors[0].extensions.exception.errors })
 

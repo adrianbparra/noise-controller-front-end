@@ -19,19 +19,33 @@ mutation LOGIN($email: String!, $password: String!){
       email
       title
       lastName
-      
+      token
     }
   }
 `;
 
 
 export const SIGN_UP_USER = gql`
-mutation SIGN_UP($email:String!, $firstName: String!, $lastName: String!, $title: String!, $password: String!){
+  mutation register(
+    $email:String!, 
+    $title: String!, 
+    $firstName: String!, 
+    $lastName: String!, 
+    $password: String!){
 
-    addUser(email : $email, firstName: $firstName, lastName: $lastName, title: $title, password: $password){
+  register(
+    registerInput: {
+      email : $email, 
+      title: $title, 
+      firstName: $firstName, 
+      lastName: $lastName, 
+      password: $password
+      }){
       id
       email
+      title
       lastName
+      token
     }
   }
 `
@@ -68,9 +82,22 @@ query USER{
 `
 
 
+// export const SELECTEDCLASS = gql`{
+//   fragment class on selectedClass {
+//     id 
+//     name 
+//     numberOfKids 
+//     theme 
+//     grade 
+//     streak 
+//   }
+// }`
+
+
 export const SELECTEDCLASS = gql`
 query selectedClass{
   user @client{
+      id
     selectedClass @client{
         id 
         name 
@@ -80,6 +107,18 @@ query selectedClass{
         streak 
     }
   }
-}
+}`
 
+
+export const ADDCLASS = gql`
+mutation ADDCLASS($name: String!, $numberOfKids: Int!, $grade: String!, $teacherId: ID!){
+  addClass(name: $name, numberOfKids: $numberOfKids, grade:$grade, teacherId: $teacherId){
+    id
+    name
+    numberOfKids
+    theme
+    grade
+    streak
+  }
+}
 `

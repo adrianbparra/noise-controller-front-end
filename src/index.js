@@ -6,7 +6,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 
 //Apollo
 import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@apollo/client';
-
+import { setContext } from "@apollo/client/link/context";
 
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
@@ -19,12 +19,21 @@ import  reducer  from "./reducers/index";
 const link = createHttpLink({
     uri: 'http://localhost:4000'
   });
+
+const authLink = setContext(() => {
+    const token = localStorage.getItem("jwtToken");
+
+    return {
+        headers: {
+            Authorization: token ? `Bearer ${token}` : ""
+        }
+    }
+})
   
 const client = new ApolloClient({
-    cache: new InMemoryCache(),
-    link
+    link: authLink.concat(link),
+    cache: new InMemoryCache()
 });
-
 
 
 // const store = createStore(reducer, applyMiddleware(thunk, logger));

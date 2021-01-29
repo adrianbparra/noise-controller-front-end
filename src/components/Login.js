@@ -4,9 +4,9 @@ import { Formik } from "formik";
 import * as yup from "yup";
 
 import { useMutation } from '@apollo/client';
-import {LOGIN_USER,USER} from "../queries/queries";
+import {LOGIN_USER} from "../queries/queries";
 
-// import { AuthContext } from "../context/auth.js";
+import { AuthContext } from "../auth/auth.js";
 
 import { Header, Form, Message, Segment } from 'semantic-ui-react';
 
@@ -19,17 +19,15 @@ const yupValidation = yup.object().shape({
 
 
 const Login = props => {
-  // const context = useContext(AuthContext);
+  const context = useContext(AuthContext);
 
   const [gqlResponse,setGqlResponse] = useState({});
 
   const [Login, {loading}] = useMutation(LOGIN_USER,{
-    update(proxy, {data: {login: userData}}){
-      console.log(userData)
-      // context.login(userData)
+    update(_, {data: {login: userData}}){
+      context.login(userData)
       props.history.push("/")
     },onError(err){
-      // console.log(err)
       if (err.graphQLErrors){
         setGqlResponse({error: true, message: err.message, ...err.graphQLErrors[0].extensions.exception.errors })
 
