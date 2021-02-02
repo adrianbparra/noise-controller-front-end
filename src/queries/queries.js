@@ -53,29 +53,29 @@ export const SIGN_UP_USER = gql`
 
 export const USER = gql`
 query USER{
-  user{
-    id
+  getUser{
     email
-    firstName
-    lastName
-    title
-    micSensitivity
+  	title
     theme
+    lastName
+    firstName
+    createdAt
+    micSensitivity
     classes{
       id
       name
-      numberOfKids
       theme
       grade
-      streak
+      numberOfKids
+      highestScore
     }
     selectedClass{
       id
       name
-      numberOfKids
       theme
       grade
-      streak
+      numberOfKids
+      highestScore
     }
   }
 }
