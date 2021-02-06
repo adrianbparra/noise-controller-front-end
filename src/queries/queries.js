@@ -64,10 +64,16 @@ query USER{
     classes{
       id
       name
+      numberOfKids
       theme
       grade
-      numberOfKids
       highestScore
+      scores{
+        id
+        theme
+        score
+        createdAt
+      }
     }
     selectedClass{
       id
@@ -96,29 +102,34 @@ query USER{
 
 export const SELECTEDCLASS = gql`
 query selectedClass{
-  user @client{
-      id
+  getUser @client{
+      lastName
     selectedClass @client{
-        id 
-        name 
-        numberOfKids 
-        theme 
-        grade 
-        streak 
+      id
+      name
+      theme
+      grade
+      numberOfKids
     }
   }
 }`
 
 
 export const ADDCLASS = gql`
-mutation ADDCLASS($name: String!, $numberOfKids: Int!, $grade: String!, $teacherId: ID!){
-  addClass(name: $name, numberOfKids: $numberOfKids, grade:$grade, teacherId: $teacherId){
+mutation ADDCLASS($name: String!, $numberOfKids: Int!, $grade: String!, $theme: String){
+  addClass(name: $name, numberOfKids: $numberOfKids, grade:$grade, theme: $theme){
     id
     name
     numberOfKids
     theme
     grade
-    streak
+    highestScore
+    scores{
+      id
+      theme
+      score
+      createdAt
+    }
   }
 }
 `

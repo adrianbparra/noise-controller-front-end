@@ -7,7 +7,6 @@ import AuthRoute from "./auth/AuthRoute.js";
 
 import Signup from './components/Signup';
 import PrivateRoute from './auth/PrivateRoute';
-import Logout from './components/Logout';
 import Login from './components/Login';
 import Home from './components/Home';
 import ScoreList from "./components/ScoresList";

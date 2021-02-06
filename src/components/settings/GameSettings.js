@@ -1,7 +1,4 @@
 import React, {useState,useEffect} from "react";
-import {connect} from "react-redux";
-
-import {editAccount} from "../../actions/accountAction";
 
 import { Tab,Form } from "semantic-ui-react";
 
@@ -54,9 +51,4 @@ function GameSettings(props) {
     )
 }
 
-const mapStatetoProps = state => ({
-    id: state.accountReducer.id,
-    micSens: state.accountReducer.micSensitivity,
-})
-
-export default connect(mapStatetoProps,{editAccount})(GameSettings)
+export default GameSettings;

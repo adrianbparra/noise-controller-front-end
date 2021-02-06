@@ -1,24 +1,21 @@
 // Where we will render classroom daily scores (multiple daily scores from the entire week maybe? depends on data..)
 import React, { useState, useEffect } from 'react';
-import { connect } from "react-redux"
 import {useHistory} from "react-router-dom"
 
 import ScoreCard from './ScoreCard';
-import {getScores ,selectCurrentClass} from "../actions/classesAction.js";
-
 import { Table, Segment, Header } from "semantic-ui-react";
 
 const ScoresList = props => {
     const history = useHistory();
 
-    useEffect(() => {
-        console.log("class  change")
-        if(props.selectedClass.name && props.match.params.name !== props.selectedClass.name){
-            props.getScores(props.selectedClass.id)
-            let path =  "/" + props.selectedClass.name + "/scores";
-            history.push(path, props.selectedClass)
-        }
-    }, [props.selectedClass]);
+    // useEffect(() => {
+    //     console.log("class  change")
+    //     if(props.selectedClass.name && props.match.params.name !== props.selectedClass.name){
+    //         props.getScores(props.selectedClass.id)
+    //         let path =  "/" + props.selectedClass.name + "/scores";
+    //         history.push(path, props.selectedClass)
+    //     }
+    // }, [props.selectedClass]);
 
     useEffect(()=> {
         console.log("match change", props.match.params)
@@ -64,10 +61,5 @@ const ScoresList = props => {
     );
 }
 
-const mapStatetoProps = state => ({
-    selectedClass : state.classReducer.selectedClass,
-    scores : state.classReducer.selectedClassScores,
-    classes: state.classReducer.classes
-})
 
-export default connect(mapStatetoProps,{getScores,selectCurrentClass})(ScoresList);
+export default ScoresList;

@@ -1,13 +1,15 @@
 import React from "react";
-import {connect} from "react-redux";
 import { Link } from 'react-router-dom';
+import { useQuery } from "@apollo/client";
 
 import Class from "./Class";
 
 import {  Segment,Header, Table,Button,Responsive } from 'semantic-ui-react';
 
-function Classes(props) {
-    
+import {USER} from "../../queries/queries";
+
+function Classes() {
+    const {data, loading} = useQuery(USER)
 
     return (
         <Segment>
@@ -19,19 +21,17 @@ function Classes(props) {
                         <Table.HeaderCell>Class Name</Table.HeaderCell>
                         <Table.HeaderCell>Grade</Table.HeaderCell>
                         <Table.HeaderCell>Students</Table.HeaderCell>
-                        <Table.HeaderCell>Streak</Table.HeaderCell>
+                        <Table.HeaderCell>Highest Score</Table.HeaderCell>
                         <Table.HeaderCell>Theme</Table.HeaderCell>
 
                     </Table.Row>
                 </Table.Header>
                 <Table.Body>
-                {props.classes.length > 0 ? props.classes.map(cls => <Class cls={cls} />):  null}
+                { data && data.getUser.classes.map(cls => <Class cls={cls} />)}
                 </Table.Body>
                 
                 <Table.Footer fullWidth>
                     <Responsive as={Table.HeaderCell} minWidth={768}/>
-                        
-                
                     
                     <Table.HeaderCell colSpan="5" textAlign="right">
                         <Button
@@ -51,10 +51,6 @@ function Classes(props) {
 }
 
 
-const mapStatetoProps = state=>({
-    classes: state.classReducer.classes,
-    selectedClass: state.classReducer.selectedClass
-})
 
 
-export default connect(mapStatetoProps,{})(Classes);
+export default Classes;

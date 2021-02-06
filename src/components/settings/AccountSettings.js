@@ -1,12 +1,9 @@
 import React from "react";
-import {connect} from "react-redux";
 import { Formik } from "formik";
 import * as yup from "yup";
 
 import { Tab,Form, Button } from "semantic-ui-react";
 import  styled from "styled-components";
-
-import {editAccount, deleteAccount} from "../../actions/accountAction";
 
 const title = [
     {key:"0", text:"Dr.", value: "Dr."},
@@ -42,7 +39,7 @@ function AccountSettings(props) {
 
     const handleDelete = e => {
         console.log("delete")
-        props.deleteAccount(props.account.id)
+        
     }
     
     return (
@@ -126,8 +123,4 @@ function AccountSettings(props) {
     )
 }
 
-const mapStatetoProps = state => ({
-    account : state.accountReducer
-})
-
-export default connect(mapStatetoProps, {editAccount, deleteAccount})(AccountSettings);
+export default AccountSettings;

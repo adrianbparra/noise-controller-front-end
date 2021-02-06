@@ -1,8 +1,5 @@
 // where the actual animals are disappearing and where we are measuring mic sensitivity 
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
-//import { deleteAnimal, updateSingleAnimal, toggleShowUpdate } from '../actions';
-
 
 // class Home extends Component {
 //     handleDeleteAnimal = () => {
@@ -70,18 +67,6 @@ function Home(props) {
 
 export default Home;
 
-// const mapStateToProps = state => {
-//     return {
-// /**Need to include all reducer forms */
-//         deletingAnimal: state.animalsReducer.animalsFriend,
-//         error: state.animalsReducer.error,
-//         showUpdate: state.singleAnimalReducer.showUpdate,
-//         animalSelected: state.singleAnimalReducer.animalSelected
-//     }; 
-// };
 
-// export default connect(mapStateToProps, {
-//     deleteAnimal,
-//     updateSingleAnimal,
-//     toggleShowUpdate,
-// })(Animals);
+
+// export default Animals;

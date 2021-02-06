@@ -1,9 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import {connect} from "react-redux";
-
-
 import NavAuth from "./NavAuth.js";
 
 import {  Menu } from 'semantic-ui-react';
@@ -17,13 +14,15 @@ margin-bottom: 6rem!important;
 `;
 
 
-function NavBar(props) {
+function NavBar() {
 
   return (
     <Menu as={MenuStyled}>
       <Menu.Item key='home'
         name="Lets Play"
-        as = {Link} exact to="/"
+        as = {Link} 
+        exact 
+        to="/"
       >
         
       </Menu.Item>
@@ -33,11 +32,5 @@ function NavBar(props) {
     </Menu>
   );
 }
-
-const mapStatetoProps = state=>({
-  account: state.accountReducer,
-  classes: state.classReducer.classes,
-  selectedClass: state.classReducer.selectedClass
-})
 
 export default NavBar;

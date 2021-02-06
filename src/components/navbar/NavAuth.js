@@ -1,28 +1,23 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { Link } from 'react-router-dom';
-import NavSettings from "./NavSettings.js";
-import MenuItem from "./MenuItem.js"
 import {  Menu, Dropdown, Icon } from 'semantic-ui-react';
-
-import {connect} from "react-redux";
-import { useQuery,gql } from '@apollo/client';
+import { useLazyQuery } from '@apollo/client';
 
 import {USER} from "../../queries/queries.js";
+import { AuthContext } from "../../auth/auth.js";
 
-
-import {selectCurrentClass} from "../../actions/classesAction";
-
-
-
-
+import NavSettings from "./NavSettings.js";
+import MenuItem from "./MenuItem";
 
 function NavAuth(props) {
+  const { user } = useContext(AuthContext);
+
   const [isMobile, setMobile] = React.useState(getWindowWidth())
   // const [loadClasses, { called,loading, data} ] = useLazyQuery(GET_CLASSES);
-  const  {loading, data, error, called, variables} = useQuery(USER)
-  // console.log(loading,data,error,called,variables)
+  const  [getUser, {loading, data, error, called, variables}] = useLazyQuery(USER)
+  // console.table(loading,data,error,called,variables)
 
-  React.useEffect(()=>{
+  useEffect(()=>{
     
     function handleResize() {
       setMobile(getWindowWidth());
@@ -33,18 +28,25 @@ function NavAuth(props) {
     
   },[])
 
+  useEffect(() => {
+
+    if (user){
+      getUser()
+    }
+  },[user])
+
   function getWindowWidth(){
     const { innerWidth} = window;
     return innerWidth  < 768 ? true : false
     
   }
 
-      if(data){
+      if(user){
         return (
           <>
           <Dropdown
             item 
-            text={!data.user.selectedClass ? "Class" :  isMobile ? `${data.user.selectedClass.name.slice(0,10)}...`: data.user.selectedClass.name}
+            text = {data && data.getUser.selectedClass ? isMobile ? `${data.getUser.selectedClass.name.slice(0,10)}...` : data.getUser.selectedClass.name : "Classes"  }
             simple
             scrolling
           >
@@ -59,7 +61,7 @@ function NavAuth(props) {
               >
                 All Classes
               </Menu.Item>
-              {data.user && data.user.classes.map(cls=> <MenuItem cls={cls} /> )}
+              {data && data.getUser.classes.map(cls=> <MenuItem cls={cls} /> )}
 
             </Menu.Menu>
 
@@ -106,11 +108,5 @@ function NavAuth(props) {
 
     
 }
-
-// const mapStatetoProps = state=>({
-//   account: state.accountReducer,
-//   classes: state.classReducer.classes,
-//   selectedClass: state.classReducer.selectedClass
-// })
 
 export default NavAuth
