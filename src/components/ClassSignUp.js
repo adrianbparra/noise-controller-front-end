@@ -53,6 +53,7 @@ const ClassSignUp = props => {
           ...data,
           getUser: {
             ...data.getUser,
+            selectedClass:result.data.addClass,
             classes: [
               ...data.getUser.classes,
               result.data.addClass

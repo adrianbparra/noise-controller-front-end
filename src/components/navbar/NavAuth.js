@@ -11,10 +11,13 @@ import MenuItem from "./MenuItem";
 
 function NavAuth(props) {
   const { user } = useContext(AuthContext);
+  const update = (res)=>{
+    console.log("update", res)
+  }
 
   const [isMobile, setMobile] = React.useState(getWindowWidth())
   // const [loadClasses, { called,loading, data} ] = useLazyQuery(GET_CLASSES);
-  const  [getUser, {loading, data, error, called, variables}] = useLazyQuery(USER)
+  const  [getUser, {loading, data, error, called, variables }] = useLazyQuery(USER)
   // console.table(loading,data,error,called,variables)
 
   useEffect(()=>{
@@ -48,7 +51,6 @@ function NavAuth(props) {
             item 
             text = {data && data.getUser.selectedClass ? isMobile ? `${data.getUser.selectedClass.name.slice(0,10)}...` : data.getUser.selectedClass.name : "Classes"  }
             simple
-            scrolling
           >
             <Menu.Menu>
               <Menu.Item
@@ -61,7 +63,7 @@ function NavAuth(props) {
               >
                 All Classes
               </Menu.Item>
-              {data && data.getUser.classes.map(cls=> <MenuItem cls={cls} /> )}
+              {data && data.getUser.classes.map(cls=> <MenuItem key={cls.id} cls={cls} /> )}
 
             </Menu.Menu>
 
