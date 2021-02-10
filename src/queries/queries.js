@@ -2,11 +2,22 @@ import {gql} from "@apollo/client"
 
 
 export const GET_CLASSES = gql`
-  { 
-    classes{
-      name
-      numberOfKids
-      theme
+  query Classes{
+    getUser @client{
+      classes @client{
+        id
+        name
+        numberOfKids
+        theme
+        grade
+        highestScore
+        scores @client{
+          id
+          theme
+          score
+          createdAt
+        }
+      }
     }
   }
 `;
@@ -103,13 +114,8 @@ query USER{
 export const SELECTEDCLASS = gql`
 query selectedClass{
   getUser @client{
-      lastName
     selectedClass @client{
       id
-      name
-      theme
-      grade
-      numberOfKids
     }
   }
 }`
@@ -129,6 +135,21 @@ mutation ADDCLASS($name: String!, $numberOfKids: Int!, $grade: String!, $theme: 
       theme
       score
       createdAt
+    }
+  }
+}
+`
+
+export const UPDATESELECTEDCLASS = gql`
+mutation UPDATESELECTEDCLASS($selectedClassId: String!){
+  updateUser(selectedClassId: $selectedClassId){
+    selectedClass{
+      id
+      name
+      theme
+      grade
+      numberOfKids
+      highestScore
     }
   }
 }
