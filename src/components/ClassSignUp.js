@@ -42,12 +42,12 @@ const ClassSignUp = props => {
   const  {loading: selectedloading, data} = useQuery(SELECTEDCLASS)
 
   const [addClass, {loading: classLoading}] = useMutation(ADDCLASS,{
-    update(proxy, result) {
-      const data = proxy.readQuery({
+    update(cache, result) {
+      const data = cache.readQuery({
         query: USER
       });
       
-      proxy.writeQuery({ 
+      cache.writeQuery({ 
         query: USER, 
         data:{
           ...data,
