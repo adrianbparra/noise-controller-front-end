@@ -1,20 +1,42 @@
 import React from "react"
 import {  Menu } from 'semantic-ui-react';
+import { useMutation, useQuery } from "@apollo/client";
+
+import { UPDATESELECTEDCLASS, SELECTEDCLASS, USER } from "../../queries/queries";
 
 
 
+function MenuItems({cls}) {
 
-function MenuItems({cls},props) {
+    const {data: {getUser: {selectedClass}}} = useQuery(SELECTEDCLASS);
 
-    const changeClass = (e) => {
-        console.log("change class:", cls)
+    const [ updateSelectedClass ] = useMutation(UPDATESELECTEDCLASS, {
+        update(cache, {data: { updateUser }}){
+            const data = cache.readQuery({
+                query: USER
+            });
+            cache.writeQuery({ 
+            query: USER, 
+            data:{
+                ...data,
+                getUser: {
+                ...data.getUser,
+                selectedClass: updateUser.selectedClass,
+                }
+            }
+            });
+        }
+    });
+
+    const changeClass = () => {
+        updateSelectedClass({variables:{selectedClassId: cls.id}})
     }
 
     return(
         <Menu.Item
-            key={cls.id}
             onClick={changeClass}
             tabIndex="0"
+            active= {selectedClass.id === cls.id}
         >
             {cls.name}
         </Menu.Item>        
