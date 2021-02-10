@@ -8,7 +8,7 @@ import { UPDATESELECTEDCLASS, SELECTEDCLASS, USER } from "../../queries/queries"
 
 function MenuItems({cls}) {
 
-    const {data: {getUser: {selectedClass}}} = useQuery(SELECTEDCLASS);
+    const {data} = useQuery(SELECTEDCLASS);
 
     const [ updateSelectedClass ] = useMutation(UPDATESELECTEDCLASS, {
         update(cache, {data: { updateUser }}){
@@ -36,7 +36,7 @@ function MenuItems({cls}) {
         <Menu.Item
             onClick={changeClass}
             tabIndex="0"
-            active= {selectedClass.id === cls.id}
+            active= {data && data.getUser.selectedClass.id === cls.id}
         >
             {cls.name}
         </Menu.Item>        
