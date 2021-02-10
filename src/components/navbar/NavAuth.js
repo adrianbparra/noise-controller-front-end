@@ -11,9 +11,6 @@ import MenuItem from "./MenuItem";
 
 function NavAuth(props) {
   const { user } = useContext(AuthContext);
-  const update = (res)=>{
-    console.log("update", res)
-  }
 
   const [isMobile, setMobile] = React.useState(getWindowWidth())
   // const [loadClasses, { called,loading, data} ] = useLazyQuery(GET_CLASSES);
@@ -63,6 +60,7 @@ function NavAuth(props) {
               >
                 All Classes
               </Menu.Item>
+              <Dropdown.Divider />
               {data && data.getUser.classes.map(cls=> <MenuItem key={cls.id} cls={cls} /> )}
 
             </Menu.Menu>
