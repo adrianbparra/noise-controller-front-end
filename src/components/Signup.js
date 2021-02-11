@@ -8,7 +8,7 @@ import * as yup from "yup";
 import { AuthContext } from "../auth/auth.js";
 
 import { useMutation } from '@apollo/client';
-import {SIGN_UP_USER} from "../queries/queries";
+import { SIGN_UP_USER } from "../queries/queries";
 
 const yupValidation = yup.object().shape({
   email: yup.string().email("Please enter a valid email").required("Please enter your email"),
@@ -32,10 +32,11 @@ const Signup = props => {
   const [gqlResponse,setGqlResponse] = useState({})
   
   const [SIGN_UP, {loading}] = useMutation(SIGN_UP_USER,{
-    update(proxy, {data: {register: userData}}){
+    update(_, {data: {register: userData}}){
       context.login(userData)
       props.history.push("/")
-    },onError(err){
+    },
+    onError(err){
       if (err.graphQLErrors){
         setGqlResponse({error: true, message: err.message, ...err.graphQLErrors[0].extensions.exception.errors })
 
@@ -164,7 +165,7 @@ const Signup = props => {
               size='large'
               type='submit'
               onClick={props.handleSubmit}
-              disabled={!Object.keys(props.errors).length == 0 || !Object.keys(gqlResponse).length == 0}
+              disabled={!Object.keys(props.errors).length === 0 || !Object.keys(gqlResponse).length === 0}
               loading={loading}
             >
               Submit

@@ -4,7 +4,7 @@ import { Formik } from "formik";
 import * as yup from "yup";
 
 import { useMutation } from '@apollo/client';
-import {LOGIN_USER} from "../queries/queries";
+import { LOGIN_USER } from "../queries/queries";
 
 import { AuthContext } from "../auth/auth.js";
 
@@ -27,7 +27,8 @@ const Login = props => {
     update(_, {data: {login: userData}}){
       context.login(userData)
       props.history.push("/")
-    },onError(err){
+    },
+    onError(err){
       if (err.graphQLErrors){
         setGqlResponse({error: true, message: err.message, ...err.graphQLErrors[0].extensions.exception.errors })
 
@@ -48,7 +49,6 @@ const Login = props => {
         }}
         validationSchema={yupValidation}
         onSubmit={(values) => {
-          console.log(values)
           Login({variables: values})
         }}
         
