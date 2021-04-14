@@ -98,6 +98,19 @@ query USER{
 }
 `
 
+export const USERSETTINGS = gql`
+query USERSETTINGS{
+  getUser{
+    email
+  	title
+    theme
+    lastName
+    firstName
+    createdAt
+    micSensitivity
+  }
+}
+`
 
 // export const SELECTEDCLASS = gql`{
 //   fragment class on selectedClass {
@@ -116,6 +129,17 @@ query selectedClass{
   getUser @client{
     selectedClass @client{
       id
+      name
+      numberOfKids
+      theme
+      grade
+      highestScore
+      scores{
+        id
+        theme
+        score
+        createdAt
+      }
     }
   }
 }`
@@ -154,3 +178,32 @@ mutation UPDATESELECTEDCLASS($selectedClassId: String!){
   }
 }
 `
+
+export const UPDATEUSER = gql`
+mutation UPDATEUSER($firstName: String, $lastName: String, $title: String, $password: String){
+  updateUser(firstName: $firstName, lastName: $lastName, title: $title, password: $password){
+    email
+  	title
+    lastName
+    firstName
+    micSensitivity
+  }
+}
+`
+
+export const DELETEUSER = gql`
+  mutation{
+    deleteUser{
+      message
+      user
+    }
+  }
+`
+
+// export const DELETECLASS = gql`
+// mutation DELETECLASS($classId: String!){
+//   updateClass(classId: $classId){
+
+//   }
+// }
+// `
