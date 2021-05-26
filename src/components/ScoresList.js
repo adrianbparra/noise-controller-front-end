@@ -9,12 +9,9 @@ import ScoreCard from './ScoreCard';
 
 const ScoresList = props => {
     const { data } = useQuery(SELECTEDCLASS);
-    // const { selectedClass }= data.getUser;
-    console.log(data)
     const history = useHistory();
 
     useEffect(() => {
-        console.log("class  change")
         if(data && props.match.params.name !== data.getUser.selectedClass.name){
             let pathname =  "/" + data.getUser.selectedClass.name + "/scores";
             history.replace({ pathname })
@@ -24,7 +21,7 @@ const ScoresList = props => {
     return (
         <Segment>
             <Header as="h2" textAlign="center">
-               Scores for {data&& data.getUser.selectedClass.name}
+               Scores for {data && data.getUser.selectedClass.name}
             </Header>
             <Table celled>
                 <Table.Header>
@@ -36,7 +33,7 @@ const ScoresList = props => {
                 </Table.Header>
 
                 <Table.Body>
-                    {data ? data.getUser.selectedClass.scores.map(score => <ScoreCard score={score} />): null}
+                    {data && data.getUser.selectedClass.scores.map(score => <ScoreCard score={score} />)}
 
                 </Table.Body>
 
