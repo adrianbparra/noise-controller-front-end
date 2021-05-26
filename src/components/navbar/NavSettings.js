@@ -22,26 +22,23 @@ function NavSettings(props) {
     return (
         <> 
             <Menu.Item
-            //   onClick={handleMenuChange}
+              name="scores"
               onClick={ ()=> {
-                console.log(data)
                 let path = "/"+ data.getUser.selectedClass.name + "/scores"
                 history.push(path ,data.getUser.selectedClass)
               }}
               tabindex="0"
-              name="scores"
               disabled={data && data.getUser.selectedClass ? false: true}
             />
   
             <Menu.Item
-            //   onClick={handleMenuChange}
-              as={Link} to="/settings"
               name="settings"
+              as={Link} to="/settings"
+              tabindex="0"
             />
             
             <Menu.Item
               name="logout"
-              // active={selectedMenu === "logout"}
               onClick={handleLogout}
               tabindex="0"
             /> 

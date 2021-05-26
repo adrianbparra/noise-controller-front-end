@@ -3,19 +3,17 @@ import { Link } from 'react-router-dom';
 import {  Menu, Dropdown, Icon } from 'semantic-ui-react';
 import { useLazyQuery } from '@apollo/client';
 
-import {USER} from "../../queries/queries.js";
+import { USER } from "../../queries/queries.js";
 import { AuthContext } from "../../auth/auth.js";
 
 import NavSettings from "./NavSettings.js";
 import MenuItem from "./MenuItem";
 
-function NavAuth(props) {
+function NavAuth() {
   const { user } = useContext(AuthContext);
 
   const [isMobile, setMobile] = React.useState(getWindowWidth())
-  // const [loadClasses, { called,loading, data} ] = useLazyQuery(GET_CLASSES);
   const  [getUser, {loading, data, error, called, variables }] = useLazyQuery(USER)
-  // console.table(loading,data,error,called,variables)
 
   useEffect(()=>{
     
@@ -36,7 +34,7 @@ function NavAuth(props) {
   },[user])
 
   function getWindowWidth(){
-    const { innerWidth} = window;
+    const { innerWidth } = window;
     return innerWidth  < 768 ? true : false
     
   }
@@ -48,6 +46,7 @@ function NavAuth(props) {
             item 
             text = {data && data.getUser.selectedClass ? isMobile ? `${data.getUser.selectedClass.name.slice(0,10)}...` : data.getUser.selectedClass.name : "Classes"  }
             simple
+            loading={loading}
           >
             <Menu.Menu>
               <Menu.Item
@@ -90,13 +89,11 @@ function NavAuth(props) {
         return (
           <Menu.Menu position="right">
             <Menu.Item
-              // onClick={handleMenuChange}
               as={Link} to="/login"
             >
               Login
             </Menu.Item>
             <Menu.Item
-              // onClick={handleMenuChange}
               as={Link} to="/signup"
             >
               Sign Up
