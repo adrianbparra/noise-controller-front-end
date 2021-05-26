@@ -29,10 +29,11 @@ const Login = props => {
       props.history.push("/")
     },
     onError(err){
-      if (err.graphQLErrors){
+      if (err.graphQLErrors.length > 0){
         setGqlResponse({error: true, message: err.message, ...err.graphQLErrors[0].extensions.exception.errors })
-
+        return
       }
+      setGqlResponse({error: true, message: "Unable to Login, Please try again later"})
     }
   })
 

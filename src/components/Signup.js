@@ -37,14 +37,14 @@ const Signup = props => {
       props.history.push("/")
     },
     onError(err){
-      if (err.graphQLErrors){
+      if (err.graphQLErrors.length > 0){
         setGqlResponse({error: true, message: err.message, ...err.graphQLErrors[0].extensions.exception.errors })
-
+        return 
       }
+      setGqlResponse({error: true, message: "Unable to Register, Please try again later"})
     }
   })
 
-  // console.log("loading:", loading, "data:", data, "errors:", errors)
 
   return (
     <>
@@ -65,7 +65,6 @@ const Signup = props => {
         }}
         validationSchema={yupValidation}
         onSubmit={(values) => {
-          console.log(values)
           SIGN_UP({variables:values})
         }}
         
