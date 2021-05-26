@@ -3,5 +3,5 @@ WORKDIR /usr/src/app
 COPY ["package.json", "package-lock.json*", "npm-shrinkwrap.json*", "./"]
 RUN yarn install --production --silent && mv node_modules ../
 COPY . .
-EXPOSE 4000
+EXPOSE 3000
 CMD ["yarn", "start"]
