@@ -1,15 +1,13 @@
 import React from "react";
 import { Link } from 'react-router-dom';
 import { useQuery } from "@apollo/client";
-
-import Class from "./Class";
-
 import {  Segment,Header, Table,Button,Responsive } from 'semantic-ui-react';
 
+import Class from "./Class";
 import {USER} from "../../queries/queries";
 
 function Classes() {
-    const {data, loading} = useQuery(USER)
+    const {data} = useQuery(USER)
 
     return (
         <Segment>

@@ -1,18 +1,22 @@
 import React from "react";
-import {useHistory} from "react-router-dom";
-
+import { useHistory } from "react-router-dom";
+import { useMutation } from "@apollo/client";
 import { Table,Button } from "semantic-ui-react";
 
+import { updateUser } from "../../queries/queries";
 
-function Class(props) {
-    const {cls} = props;
+
+
+
+function Class({cls}) {
+
     const history = useHistory();
 
     const editClass = e =>{
 
         // props.selectCurrentClass(cls)
         console.log("edit class")
-        // history.push(`/classes/${cls.name}`)
+        history.push(`/classes/${cls.name}`)
 
     }
 
