@@ -59,10 +59,10 @@ Not Deployed at the moment
 ## Built With
 
 * [Reactjs.org](https://reactjs.org/docs/getting-started.html) - Created using React
-* [Redux.org](https://redux.js.org/) - Redux State Management
-* [Formik.org](https://formik.org/) - Form Management
 * [apollographql.com](https://www.apollographql.com/docs/react/get-started/) - Apollo GraphQL State Management
 * [Graphql.org](https://graphql.org/) - GraphQL query language
+* [React Semantic](https://react.semantic-ui.com/) - Semantic Styling
+
 
 ## Contributing
 
