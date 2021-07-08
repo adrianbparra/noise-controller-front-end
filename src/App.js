@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import "semantic-ui-css/semantic.min.css";
 
 import { AuthProvider } from "./auth/auth.js";
 import AuthRoute from "./auth/AuthRoute.js";
@@ -13,7 +12,8 @@ import ScoreList from "./components/ScoresList";
 import Classes from "./components/classes/Classes";
 import ClassSignUp from './components/ClassSignUp';
 import Settings from './components/settings/Settings';
-import AnimalPage from './components/AnimalPage';
+import Game from './components/Game';
+import GameScreen from "./components/GameScreen";
 import NavBar from "./components/navbar/NavBar.js";
 
 import styled from "styled-components";
@@ -22,7 +22,6 @@ import { Container } from 'semantic-ui-react';
 
 const ContStyled = styled.div`
   padding: 2rem;
-
   @media only screen and (max-width: 768px){
     padding: 2rem .4rem;
     
@@ -41,11 +40,11 @@ function App() {
 
           <Switch> 
 
-            {/* <Route 
+            <Route 
               exact
               path='/'
-              component={props => <AnimalPage {...props} />}
-            /> */}
+              component={props => <GameScreen {...props} />}
+            />
 
             <AuthRoute
               exact
