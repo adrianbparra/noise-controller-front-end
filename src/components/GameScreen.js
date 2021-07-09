@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 import styled from "styled-components";
-import { Grid, Segment } from 'semantic-ui-react';
+import { Grid, Segment, Button } from 'semantic-ui-react';
 
 import AnimalScreen from "./AnimalScreen";
 
@@ -17,6 +17,7 @@ const GameHeaderText = styled.div`
 `
 
 function GameScreen() {
+    /// will hold state so it will update noise level and animal screen
     return (
         <Segment>
             <Grid columns='equal'>
@@ -26,10 +27,32 @@ function GameScreen() {
 
             </Grid>
 
-            <AnimalScreen></AnimalScreen>
-            {/* Animal screen */}
+            <Grid>
+                
+                
+                    <Grid.Row columns={16}>
+                        {/* Animal Screen */}
+                        
+                        <AnimalScreen/>
+                    </Grid.Row>
+                
+                
 
-            {/* voice bar start total bar */}
+                <Grid.Row>
+                    <Grid.Column width={2} textAlign="center">
+                        Volume Meter
+                    </Grid.Column>
+                    <Grid.Column width={12} textAlign="center">
+                        <Button size='massive' icon='play' content='Start'/>
+                    </Grid.Column>
+                    <Grid.Column width={2}  textAlign="center">
+                        Range Meter
+                    </Grid.Column>
+                </Grid.Row>
+               
+
+            </Grid>
+
         </Segment>
     );
 }
