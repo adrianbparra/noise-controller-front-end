@@ -30,23 +30,35 @@ function GameScreen() {
             <Grid>
                 
                 
-                    <Grid.Row columns={16}>
-                        {/* Animal Screen */}
-                        
-                        <AnimalScreen/>
-                    </Grid.Row>
+                <Grid.Row width={16}>
+                    
+                    <Grid.Column width={1} only="computer" textAlign="center">
+                        Volume
+                    </Grid.Column>
+                    {/* Animal Screen */}
+                    <Grid.Column mobile={16} tablet={16} computer={14}>
+
+                    <AnimalScreen/>
+
+                    </Grid.Column>
+
+                    <Grid.Column width={1} only="computer" textAlign="center">
+                        Range
+                    </Grid.Column>
+                    
+                </Grid.Row>
                 
                 
 
                 <Grid.Row>
-                    <Grid.Column width={2} textAlign="center">
-                        Volume Meter
+                    <Grid.Column only="mobile tablet" width={2} textAlign="center">
+                        Volume
                     </Grid.Column>
-                    <Grid.Column width={12} textAlign="center">
+                    <Grid.Column mobile={12} tablet={12} computer={16} textAlign="center">
                         <Button size='massive' icon='play' content='Start'/>
                     </Grid.Column>
-                    <Grid.Column width={2}  textAlign="center">
-                        Range Meter
+                    <Grid.Column only="mobile tablet" width={2}  textAlign="center">
+                        Range
                     </Grid.Column>
                 </Grid.Row>
                
