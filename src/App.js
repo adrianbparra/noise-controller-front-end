@@ -12,7 +12,6 @@ import ScoreList from "./components/ScoresList";
 import Classes from "./components/classes/Classes";
 import ClassSignUp from './components/ClassSignUp';
 import Settings from './components/settings/Settings';
-import Game from './components/Game';
 import GameScreen from "./components/GameScreen";
 import NavBar from "./components/navbar/NavBar.js";
 
