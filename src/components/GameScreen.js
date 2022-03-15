@@ -2,8 +2,10 @@ import React, {useState} from 'react';
 
 import styled from "styled-components";
 import { Grid, Segment, Button } from 'semantic-ui-react';
+import { Canvas } from 'react-three-fiber';
 
 import AnimalScreen from "./AnimalScreen";
+import Box from "./gameObjects/Box.js";
 import AudioMeter from "./AudioMeter";
 
 const GameHeaderTextStyle = styled.div`
@@ -20,6 +22,9 @@ const GameHeaderTextStyle = styled.div`
 
 function GameScreen() {
     /// will hold state so it will update noise level and animal screen
+    
+
+    
     return (
         <Segment>
             <Grid columns='equal'>
@@ -40,7 +45,16 @@ function GameScreen() {
                     {/* Animal Screen */}
                     <Grid.Column mobile={16} tablet={16} computer={14}>
 
-                    <AnimalScreen/>
+                    {/* <AnimalScreen/> */}
+                    <Canvas
+                        camera={[75,0.01,100,[400,0,0]]}
+                    >
+                        <ambientLight intensity={0.1} />
+                        <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
+                        <pointLight position={[-10, -10, -10]} />
+                        <Box position={[0,0,0]}/>
+                    </Canvas>
+
 
                     </Grid.Column>
 
