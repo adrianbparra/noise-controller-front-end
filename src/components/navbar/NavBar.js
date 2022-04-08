@@ -7,10 +7,7 @@ import {  Menu } from 'semantic-ui-react';
 import styled from "styled-components";
 
 const MenuStyled = styled.div`
-margin-bottom: 6rem!important;
-@media only screen and (max-width: 767px){
-  margin-bottom: 3rem!important
-}
+margin-bottom: 2rem!important;
 `;
 
 

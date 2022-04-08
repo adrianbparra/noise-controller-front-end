@@ -25,7 +25,7 @@ function AudioMeter({range}) {
     
     return (
         <AudioContainerStyle as={Segment}>
-            <AudioMeterStyle height={75} color={75}/>
+            <AudioMeterStyle height={50} color={50}/>
         </AudioContainerStyle>
     );
 }

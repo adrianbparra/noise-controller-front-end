@@ -1,5 +1,6 @@
-import React from 'react';
-import { Grid, Segment } from 'semantic-ui-react';
+import React, { useRef, useState, useMemo } from 'react';
+import { Canvas,useFrame} from "@react-three/fiber";
+import * as THREE from "three";
 import styled from "styled-components";
 import backgroundImage from "../images/farm_background.png"
 
@@ -16,7 +17,7 @@ const  ImageStyle = styled.img`
     display: block;
 `;
 
-function AnimalScreen(props) {
+function AnimalScreen() {
     return (
         <GameScreenDivStyle>
             <ImageStyle src={backgroundImage} alt="Farm Background"/>

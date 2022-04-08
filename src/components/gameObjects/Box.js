@@ -1,5 +1,5 @@
 import React, { useRef, useState, useMemo,useEffect } from "react";
-import { useFrame } from "react-three-fiber";
+import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import five from "../../images/five.png";
 
@@ -36,7 +36,7 @@ function Box(props) {
         window.addEventListener("keydown", update);
 
         return ()=> {
-            window.removeEventListener("keypress",update);
+            window.removeEventListener("keydown",update);
         }
 
     },[])

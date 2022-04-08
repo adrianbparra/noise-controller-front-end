@@ -1,11 +1,15 @@
-import React, {useState} from 'react';
+import React, {useState, Suspense} from 'react';
 
 import styled from "styled-components";
 import { Grid, Segment, Button } from 'semantic-ui-react';
-import { Canvas } from 'react-three-fiber';
+import { Canvas } from "@react-three/fiber";
+import { Environment,OrbitControls } from "@react-three/drei";
 
 import AnimalScreen from "./AnimalScreen";
 import Box from "./gameObjects/Box.js";
+import Cow from "./gameObjects/Cow/Cow.js";
+import World from "./gameObjects/Environment.js";
+import FarmHouse from "./gameObjects/FarmHouse.js";
 import AudioMeter from "./AudioMeter";
 
 const GameHeaderTextStyle = styled.div`
@@ -20,10 +24,11 @@ const GameHeaderTextStyle = styled.div`
     margin: .8vw 0;
 `
 
-function GameScreen() {
-    /// will hold state so it will update noise level and animal screen
-    
+const CanvasScreen = styled.div`
+    height: calc(100vh - 400px);
+`
 
+function GameScreen() {
     
     return (
         <Segment>
@@ -37,26 +42,34 @@ function GameScreen() {
             <Grid>
                 
                 
-                <Grid.Row width={16}>
+                <Grid.Row width={16} stretched>
                     
                     <Grid.Column width={1} only="computer" textAlign="center">
                         <AudioMeter/>
                     </Grid.Column>
                     {/* Animal Screen */}
-                    <Grid.Column mobile={16} tablet={16} computer={14}>
+                    <CanvasScreen as={Grid.Column} mobile={16} tablet={16} computer={14}>
+                    
+                        <Canvas
+                            camera={{ position: [0, 20, 160], fov: 15 }}
+                        >
+                                {/* <Environment preset="sunset" background /> */}
+                                <ambientLight intensity={0.1} />
+                                {/* <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} /> */}
+                                <pointLight position={[10, 40, 40]} intensity={.6} />
+                            <Suspense fallback={null}>
+                                {/* <Box position={[0,0,0]}/> */}
+                                <World/>
+                                <FarmHouse position={[0,.01,0]}/>
+                                {/* <Cow position={[0, 2, 0]}/> */}
+                                
 
-                    {/* <AnimalScreen/> */}
-                    <Canvas
-                        camera={[75,0.01,100,[400,0,0]]}
-                    >
-                        <ambientLight intensity={0.1} />
-                        <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
-                        <pointLight position={[-10, -10, -10]} />
-                        <Box position={[0,0,0]}/>
-                    </Canvas>
+                            </Suspense>
+                            <OrbitControls/>
+                        </Canvas>
 
 
-                    </Grid.Column>
+                    </CanvasScreen>
 
                     <Grid.Column width={1} only="computer" textAlign="center">
                         <AudioMeter/>
