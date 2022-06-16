@@ -31,7 +31,7 @@ function App() {
   return (
     
     <AuthProvider>
-      <ContStyled as={Container}>
+      <ContStyled as={Container} fluid >
 
         <Router>
 

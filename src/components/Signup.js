@@ -1,6 +1,6 @@
 import React, {useState, useContext} from "react";
 import { Link } from 'react-router-dom';
-import { Form, Header, Message, Segment } from 'semantic-ui-react';
+import { Form, Header, Message, Segment, Container } from 'semantic-ui-react';
 
 import { Formik } from "formik";
 import * as yup from "yup";
@@ -47,7 +47,7 @@ const Signup = props => {
 
 
   return (
-    <>
+    <Container>
     <Segment>
       
         <Header as='h1' textAlign="center">
@@ -190,7 +190,7 @@ const Signup = props => {
       />)
     }
     
-    </>
+    </Container>
   );
 };
 

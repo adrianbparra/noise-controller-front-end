@@ -1,14 +1,14 @@
-import React, {useState, Suspense} from 'react';
+import React, {useState, useEffect, Suspense} from 'react';
 
 import styled from "styled-components";
 import { Grid, Segment, Button } from 'semantic-ui-react';
-import { Canvas } from "@react-three/fiber";
-import { Environment,OrbitControls } from "@react-three/drei";
+import { Canvas, context } from "@react-three/fiber";
+import { Environment,OrbitControls, Sky } from "@react-three/drei";
 
 import AnimalScreen from "./AnimalScreen";
 import Box from "./gameObjects/Box.js";
 import Cow from "./gameObjects/Cow/Cow.js";
-import World from "./gameObjects/Environment.js";
+import Grass from "./gameObjects/Grass.js";
 import FarmHouse from "./gameObjects/FarmHouse.js";
 import AudioMeter from "./AudioMeter";
 
@@ -25,10 +25,102 @@ const GameHeaderTextStyle = styled.div`
 `
 
 const CanvasScreen = styled.div`
-    height: calc(100vh - 400px);
+    height: calc(100vh - 350px);
 `
 
 function GameScreen() {
+    const [audio, setAudio] = useState(null)
+
+    const getMedia = async () => {
+        try {
+          const audio = await navigator.mediaDevices.getUserMedia({
+            audio: true,
+            video: false,
+          })
+          setAudio(audio)
+
+        } catch (err) {
+          console.log('Error:', err)
+        }
+      }
+
+    const stopMedia = ()=>{
+        audio.getTracks().forEach(track => track.stop())
+        setAudio(null)
+    }
+
+    const handleGame = () => {
+        console.log("handle media")
+        if (audio){
+            stopMedia()
+        } else{
+            getMedia()
+        }
+    }
+
+    const createVisalization = (audio) =>{
+        let context = new AudioContext();
+        let analyser = context.createAnalyser();
+
+        let audioSrc = context.createMediaStreamSource(audio);
+
+        audioSrc.connect(analyser);
+        audioSrc.connect(context.destination);
+
+        function renderframe() {
+            let freqData = new Uint8Array(analyser.frequencyBinCount)
+            requestAnimationFrame(renderframe)
+            analyser.getByteFrequencyData(freqData)
+
+            console.log(freqData)
+
+        }
+
+        renderframe()
+    }
+
+    useEffect(()=>{
+
+        console.log(audio)
+        let context = new AudioContext();
+        let analyser = context.createAnalyser();
+        
+        if (audio){
+            // createVisalization(audio)
+    
+            let audioSrc = context.createMediaStreamSource(audio);
+            
+            audioSrc.connect(analyser);
+            audioSrc.connect(context.destination);
+            
+            
+    
+            function renderframe() {
+                let freqData = new Uint8Array(analyser.frequencyBinCount)
+                requestAnimationFrame(renderframe)
+                analyser.getByteFrequencyData(freqData)
+    
+                console.log(freqData)
+    
+            }
+    
+            renderframe()
+
+        } else {
+
+            if (context){
+                context.close()
+            }
+            if (analyser){
+                analyser.disconnect()
+            }
+
+        }
+
+
+
+    },[audio])
+
     
     return (
         <Segment>
@@ -51,17 +143,16 @@ function GameScreen() {
                     <CanvasScreen as={Grid.Column} mobile={16} tablet={16} computer={14}>
                     
                         <Canvas
-                            camera={{ position: [0, 20, 160], fov: 15 }}
+                            camera={{ position: [0, 35, 240], fov: 15 }}
                         >
-                                {/* <Environment preset="sunset" background /> */}
-                                <ambientLight intensity={0.1} />
-                                {/* <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} /> */}
-                                <pointLight position={[10, 40, 40]} intensity={.6} />
+                            <Sky sunPosition={[10, 40, -400]} />
+                            <ambientLight intensity={0.5} />
+                            <pointLight position={[10, 40, -400]} intensity={.3} />
                             <Suspense fallback={null}>
                                 {/* <Box position={[0,0,0]}/> */}
-                                <World/>
+                                <Grass/>
                                 <FarmHouse position={[0,.01,0]}/>
-                                {/* <Cow position={[0, 2, 0]}/> */}
+                                <Cow position={[10, 2.2, 0]}/>
                                 
 
                             </Suspense>
@@ -84,7 +175,7 @@ function GameScreen() {
                         <AudioMeter/>
                     </Grid.Column>
                     <Grid.Column mobile={10} tablet={12} computer={16} textAlign="center">
-                        <Button size='huge' icon='play' content='Start'/>
+                        <Button onClick={handleGame} size='huge' icon='play' content='Start'/>
                     </Grid.Column>
                     <Grid.Column only="mobile tablet" mobile={3} tablet={2}  textAlign="center">
                         <AudioMeter/>

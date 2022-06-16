@@ -8,7 +8,7 @@ import { LOGIN_USER } from "../queries/queries";
 
 import { AuthContext } from "../auth/auth.js";
 
-import { Header, Form, Message, Segment } from 'semantic-ui-react';
+import { Header, Form, Message, Segment,Container } from 'semantic-ui-react';
 
 
 const yupValidation = yup.object().shape({
@@ -38,7 +38,7 @@ const Login = props => {
   })
 
   return (
-    <>
+    <Container>
     <Segment>
       
       <Header as="h1" textAlign="center">Login</Header>
@@ -121,7 +121,7 @@ const Login = props => {
       />)
     }
 
-    </>
+    </Container>
   );
 };
 export default Login;
