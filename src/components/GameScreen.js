@@ -2,8 +2,8 @@ import React, {useState, useEffect, Suspense} from 'react';
 
 import styled from "styled-components";
 import { Grid, Segment, Button } from 'semantic-ui-react';
-import { Canvas, context } from "@react-three/fiber";
-import { Environment,OrbitControls, Sky } from "@react-three/drei";
+import { Canvas } from "@react-three/fiber";
+import { OrbitControls, Sky } from "@react-three/drei";
 
 import AnimalScreen from "./AnimalScreen";
 import Box from "./gameObjects/Box.js";
@@ -18,7 +18,7 @@ const GameHeaderTextStyle = styled.div`
     color: white;
     filter: drop-shadow(0 0 0.25rem black);
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
-    1px 1px 0 #000;
+    1px 1px 0 #000; 
     text-align: center;
     text-transform: uppercase;
     margin: .8vw 0;
@@ -30,6 +30,7 @@ const CanvasScreen = styled.div`
 
 function GameScreen() {
     const [audio, setAudio] = useState(null)
+    const [audioData,setAudioData] = useState([])
 
     const getMedia = async () => {
         try {
@@ -41,10 +42,11 @@ function GameScreen() {
 
         } catch (err) {
           console.log('Error:', err)
+          alert("Unable to use Microphone")
         }
-      }
+    }
 
-    const stopMedia = ()=>{
+    const stopMedia = () => {
         audio.getTracks().forEach(track => track.stop())
         setAudio(null)
     }
@@ -58,49 +60,22 @@ function GameScreen() {
         }
     }
 
-    const createVisalization = (audio) =>{
-        let context = new AudioContext();
-        let analyser = context.createAnalyser();
-
-        let audioSrc = context.createMediaStreamSource(audio);
-
-        audioSrc.connect(analyser);
-        audioSrc.connect(context.destination);
-
-        function renderframe() {
-            let freqData = new Uint8Array(analyser.frequencyBinCount)
-            requestAnimationFrame(renderframe)
-            analyser.getByteFrequencyData(freqData)
-
-            console.log(freqData)
-
-        }
-
-        renderframe()
-    }
-
     useEffect(()=>{
-
-        console.log(audio)
         let context = new AudioContext();
         let analyser = context.createAnalyser();
         
         if (audio){
-            // createVisalization(audio)
     
             let audioSrc = context.createMediaStreamSource(audio);
             
             audioSrc.connect(analyser);
-            audioSrc.connect(context.destination);
-            
-            
     
             function renderframe() {
                 let freqData = new Uint8Array(analyser.frequencyBinCount)
                 requestAnimationFrame(renderframe)
                 analyser.getByteFrequencyData(freqData)
-    
-                console.log(freqData)
+
+                setAudioData(freqData)
     
             }
     
@@ -117,9 +92,18 @@ function GameScreen() {
 
         }
 
+        return ()=>{
 
+        }
 
     },[audio])
+
+    useEffect(()=>{
+
+        console.log(audioData)
+
+
+    },[audioData])
 
     
     return (
