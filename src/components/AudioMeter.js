@@ -8,24 +8,26 @@ const AudioContainerStyle = styled.div`
     min-height: 22vh;
 
 `;
-const AudioMeterStyle = styled.div`
+const AudioMeterStyle = styled.div.attrs(props => ({
+    style : {
+    height: props.height + "%",
+    backgroundColor: "hsl(" + (100 - props.color) + ", 100%, 50%)",
+    }
+}) )`
     width: 100%;
     display: inline-block;
-    height: ${props => props.height + "%" };
-    background-color: ${props => "hsl("+ (100 - props.color) +", 100%, 50%)"};
     position: absolute;
     bottom: 0;
     left: 0;
     overflow: hidden;
-    border-radius: .28571429rem;
-
+    border-radius: .3rem;
 `;
 
 function AudioMeter({range}) {
     
     return (
         <AudioContainerStyle as={Segment}>
-            <AudioMeterStyle height={50} color={50}/>
+            <AudioMeterStyle height={range} color={range}/>
         </AudioContainerStyle>
     );
 }
