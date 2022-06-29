@@ -31,14 +31,17 @@ const CanvasScreen = styled.div`
 function GameScreen() {
     const [audio, setAudio] = useState(null)
     const [audioData,setAudioData] = useState([])
+    const [volumeReading, setVolumeReading] = useState(0)
+    const [rangeReading,setRangeReading] = useState(0)
+    const [time,setTime] = useState(0)
 
     const getMedia = async () => {
         try {
-          const audio = await navigator.mediaDevices.getUserMedia({
+          const audioMedia = await navigator.mediaDevices.getUserMedia({
             audio: true,
             video: false,
           })
-          setAudio(audio)
+          setAudio(audioMedia)
 
         } catch (err) {
           console.log('Error:', err)
@@ -52,7 +55,6 @@ function GameScreen() {
     }
 
     const handleGame = () => {
-        console.log("handle media")
         if (audio){
             stopMedia()
         } else{
@@ -61,27 +63,30 @@ function GameScreen() {
     }
 
     useEffect(()=>{
-        let context = new AudioContext();
-        let analyser = context.createAnalyser();
+        const context = new AudioContext();
+        const analyser = context.createAnalyser();
+        let raId = null;
         
         if (audio){
     
             let audioSrc = context.createMediaStreamSource(audio);
             
             audioSrc.connect(analyser);
-    
+            
             function renderframe() {
                 let freqData = new Uint8Array(analyser.frequencyBinCount)
-                requestAnimationFrame(renderframe)
+                raId = requestAnimationFrame(renderframe)
                 analyser.getByteFrequencyData(freqData)
-
                 setAudioData(freqData)
-    
             }
     
             renderframe()
 
         } else {
+
+            setVolumeReading(0)
+            setRangeReading(0)
+            setTime(0)
 
             if (context){
                 context.close()
@@ -93,37 +98,71 @@ function GameScreen() {
         }
 
         return ()=>{
-
+            cancelAnimationFrame(raId)
         }
 
     },[audio])
 
     useEffect(()=>{
 
-        console.log(audioData)
+        
 
+        if (audio){
+
+            const volume = audioData.reduce((s,a)=>s+a,0)/1024*5
+
+            setVolumeReading(volume >= 100 ? 100 : volume)
+            
+            if (volume >= 100) {
+                if(rangeReading > 100){
+                    setRangeReading(0)
+                } 
+                else {
+                    setRangeReading(rangeReading + 1)
+                }
+            }
+
+        } else {
+            setTime(0)
+            setVolumeReading(0)
+            setRangeReading(0)
+        }
 
     },[audioData])
+
+    useEffect(()=>{
+
+        let interval
+
+        if (audio){
+            interval = setInterval(() => {
+                setTime((time)=> time + 1000)
+            }, 1000);
+        } else {
+            clearInterval(interval)
+            setTime(0)
+        }
+
+        return ()=>{
+            clearInterval(interval)
+        }
+
+    },[audio])
 
     
     return (
         <Segment>
             <Grid columns='equal'>
-                {/* time score */}
-                <GameHeaderTextStyle as={Grid.Column} >Time: {"00:00"}</GameHeaderTextStyle>
-                <GameHeaderTextStyle as={Grid.Column}>Score: {"00"}</GameHeaderTextStyle>
-
+                <GameHeaderTextStyle as={Grid.Column} >Time: {("0" + Math.floor((time / 60000) % 60)).slice(-2)}:{("0" + Math.floor((time / 1000) % 60)).slice(-2)} </GameHeaderTextStyle>
             </Grid>
 
             <Grid>
                 
-                
                 <Grid.Row width={16} stretched>
                     
                     <Grid.Column width={1} only="computer" textAlign="center">
-                        <AudioMeter/>
+                        <AudioMeter range={rangeReading}/>
                     </Grid.Column>
-                    {/* Animal Screen */}
                     <CanvasScreen as={Grid.Column} mobile={16} tablet={16} computer={14}>
                     
                         <Canvas
@@ -143,29 +182,25 @@ function GameScreen() {
                             <OrbitControls/>
                         </Canvas>
 
-
                     </CanvasScreen>
 
                     <Grid.Column width={1} only="computer" textAlign="center">
-                        <AudioMeter/>
+                        <AudioMeter range={volumeReading}/>
                     </Grid.Column>
                     
                 </Grid.Row>
-                
-                
 
                 <Grid.Row>
                     <Grid.Column only="mobile tablet" mobile={3} tablet={2} textAlign="center">
-                        <AudioMeter/>
+                        <AudioMeter range={rangeReading}/>
                     </Grid.Column>
                     <Grid.Column mobile={10} tablet={12} computer={16} textAlign="center">
-                        <Button onClick={handleGame} size='huge' icon='play' content='Start'/>
+                        <Button onClick={handleGame} size='huge' icon={audio ? "stop": "play"} content={audio ? "STOP":"START"}/>
                     </Grid.Column>
                     <Grid.Column only="mobile tablet" mobile={3} tablet={2}  textAlign="center">
-                        <AudioMeter/>
+                        <AudioMeter range={volumeReading}/>
                     </Grid.Column>
                 </Grid.Row>
-               
 
             </Grid>
 
