@@ -34,6 +34,7 @@ function GameScreen() {
     const [volumeReading, setVolumeReading] = useState(0)
     const [rangeReading,setRangeReading] = useState(0)
     const [time,setTime] = useState(0)
+    const [animals, setAnimals] = useState([])
 
     const getMedia = async () => {
         try {
@@ -105,8 +106,6 @@ function GameScreen() {
 
     useEffect(()=>{
 
-        
-
         if (audio){
 
             const volume = audioData.reduce((s,a)=>s+a,0)/1024*5
@@ -138,6 +137,8 @@ function GameScreen() {
             interval = setInterval(() => {
                 setTime((time)=> time + 1000)
             }, 1000);
+
+            
         } else {
             clearInterval(interval)
             setTime(0)
@@ -148,7 +149,17 @@ function GameScreen() {
         }
 
     },[audio])
+    
+    useEffect(()=>{
 
+        if (time % 5000 == 0 && time > 0){
+            // add an animal
+            console.log(animals)
+
+            setAnimals([<Cow key={time}/>,...animals])
+
+        }
+    },[time])
     
     return (
         <Segment>
@@ -175,8 +186,8 @@ function GameScreen() {
                                 {/* <Box position={[0,0,0]}/> */}
                                 <Grass/>
                                 <FarmHouse position={[0,.01,0]}/>
-                                <Cow position={[10, 2.2, 0]}/>
-                                
+                                {/* <Cow position={[10, 2.2, 0]}/> */}
+                                {animals.map(animal => animal)}
 
                             </Suspense>
                             <OrbitControls/>
